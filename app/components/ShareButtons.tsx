@@ -12,7 +12,7 @@ interface ShareButtonsProps {
 export default function ShareButtons({
   videoUrl,
   title = "AI UGC Video",
-  description = "Bu videoyu izleyin!",
+  description = "¡Mira este video!",
   thumbnailUrl,
 }: ShareButtonsProps) {
   const [showEmbedCode, setShowEmbedCode] = useState(false);
@@ -135,7 +135,7 @@ export default function ShareButtons({
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-        Paylaş
+        Compartir
       </h3>
 
       {/* Native Share (Mobile) */}
@@ -145,7 +145,7 @@ export default function ShareButtons({
           className="w-full px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors flex items-center justify-center gap-2 font-semibold"
         >
           <span>📱</span>
-          <span>Paylaş (Cihaz)</span>
+          <span>Compartir (Dispositivo)</span>
         </button>
       )}
 
@@ -233,7 +233,7 @@ export default function ShareButtons({
                 : "bg-gray-600 text-white hover:bg-gray-700"
             }`}
           >
-            {copied ? "✓ Kopyalandı" : "📋 Kopyala"}
+            {copied ? "✓ Copiado" : "📋 Copiar"}
           </button>
         </div>
         {!shortUrl && (
@@ -242,13 +242,13 @@ export default function ShareButtons({
             disabled={generatingShortUrl}
             className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 text-sm"
           >
-            {generatingShortUrl ? "Oluşturuluyor..." : "🔗 Kısa URL Oluştur"}
+            {generatingShortUrl ? "Generando..." : "🔗 Generar URL corta"}
           </button>
         )}
         {shortUrl && (
           <div className="p-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
             <p className="text-xs text-green-800 dark:text-green-200">
-              ✓ Kısa URL oluşturuldu: {shortUrl}
+              ✓ URL corta generada: {shortUrl}
             </p>
           </div>
         )}
@@ -261,25 +261,25 @@ export default function ShareButtons({
           className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors flex items-center justify-center gap-2"
         >
           <span>{showEmailShare ? "▼" : "▶"}</span>
-          <span>📧 Email ile Paylaş</span>
+          <span>📧 Compartir por email</span>
         </button>
         {showEmailShare && (
           <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Alıcı Email
+                Email del destinatario
               </label>
               <input
                 type="email"
                 value={emailData.to}
                 onChange={(e) => setEmailData({ ...emailData, to: e.target.value })}
-                placeholder="ornek@email.com"
+                placeholder="ejemplo@email.com"
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Konu
+                Asunto
               </label>
               <input
                 type="text"
@@ -290,7 +290,7 @@ export default function ShareButtons({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Mesaj
+                Mensaje
               </label>
               <textarea
                 value={emailData.message}
@@ -304,7 +304,7 @@ export default function ShareButtons({
               disabled={!emailData.to}
               className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors disabled:opacity-50"
             >
-              📧 Email Gönder
+              📧 Enviar email
             </button>
           </div>
         )}
@@ -317,7 +317,7 @@ export default function ShareButtons({
           className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2"
         >
           <span>{showEmbedCode ? "▼" : "▶"}</span>
-          <span>Embed Kodu</span>
+          <span>Código de inserción</span>
         </button>
         {showEmbedCode && (
           <div className="space-y-2">
@@ -335,7 +335,7 @@ export default function ShareButtons({
                   : "bg-gray-600 text-white hover:bg-gray-700"
               }`}
             >
-              {copied ? "✓ Embed Kodu Kopyalandı" : "📋 Embed Kodunu Kopyala"}
+              {copied ? "✓ Código copiado" : "📋 Copiar código"}
             </button>
           </div>
         )}
@@ -348,7 +348,7 @@ export default function ShareButtons({
           className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
         >
           <span>{showQRCode ? "▼" : "▶"}</span>
-          <span>QR Kod</span>
+          <span>Código QR</span>
         </button>
         {showQRCode && (
           <div className="flex flex-col items-center space-y-2 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -358,14 +358,14 @@ export default function ShareButtons({
               className="w-48 h-48 border-2 border-gray-300 dark:border-gray-600 rounded-lg"
             />
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              QR kodu tarayarak videoyu görüntüleyebilirsiniz
+              Escanea el código QR para ver el video
             </p>
             <a
               href={generateQRCode(videoUrl)}
               download="video-qr-code.png"
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm"
             >
-              📥 QR Kodunu İndir
+              📥 Descargar código QR
             </a>
           </div>
         )}
@@ -378,13 +378,13 @@ export default function ShareButtons({
           className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
         >
           <span>{showAdvancedOptions ? "▼" : "▶"}</span>
-          <span>⚙️ Gelişmiş Seçenekler</span>
+          <span>⚙️ Opciones avanzadas</span>
         </button>
         {showAdvancedOptions && (
           <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Paylaşım Önizlemesi
+                Vista previa del contenido compartido
               </label>
               <div className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                 {thumbnailUrl && (
@@ -405,7 +405,7 @@ export default function ShareButtons({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Meta Etiketleri (SEO)
+                Metaetiquetas (SEO)
               </label>
               <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
                 <p><strong>og:title:</strong> {title}</p>

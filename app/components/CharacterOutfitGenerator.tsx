@@ -35,34 +35,34 @@ export default function CharacterOutfitGenerator() {
   }, []);
 
   const clothingTypes = [
-    { value: "lingerie", name: "İç Giyim", icon: "👙" },
-    { value: "underwear", name: "Alt İç Giyim", icon: "🩲" },
-    { value: "bra", name: "Sütyen", icon: "👗" },
-    { value: "swimwear", name: "Mayo/Bikini", icon: "🏖️" },
-    { value: "sportswear", name: "Spor Giyim", icon: "🏃" },
-    { value: "casual", name: "Günlük Giyim", icon: "👕" },
-    { value: "formal", name: "Resmi Giyim", icon: "👔" },
-    { value: "dress", name: "Elbise", icon: "👗" },
+    { value: "lingerie", name: "Lencería", icon: "👙" },
+    { value: "underwear", name: "Ropa interior", icon: "🩲" },
+    { value: "bra", name: "Sujetador", icon: "👗" },
+    { value: "swimwear", name: "Bañador/Bikini", icon: "🏖️" },
+    { value: "sportswear", name: "Ropa deportiva", icon: "🏃" },
+    { value: "casual", name: "Ropa casual", icon: "👕" },
+    { value: "formal", name: "Ropa formal", icon: "👔" },
+    { value: "dress", name: "Vestido", icon: "👗" },
   ];
 
   const colors = [
-    "Siyah", "Beyaz", "Kırmızı", "Mavi", "Yeşil", "Pembe", "Mor", "Turuncu", 
-    "Sarı", "Kahverengi", "Gri", "Lacivert", "Turkuaz", "Altın", "Gümüş"
+    "Negro", "Blanco", "Rojo", "Azul", "Verde", "Rosa", "Morado", "Naranja",
+    "Amarillo", "Marrón", "Gris", "Marino", "Turquesa", "Dorado", "Plateado"
   ];
 
   const styles = [
-    "Klasik", "Modern", "Seksi", "Rahat", "Şık", "Spor", "Vintage", "Minimalist", 
-    "Gösterişli", "Zarif", "Casual", "Elegant"
+    "Clásico", "Moderno", "Sexy", "Cómodo", "Elegante", "Deportivo", "Vintage", "Minimalista",
+    "Llamativo", "Refinado", "Casual", "Sofisticado"
   ];
 
   const handleGenerate = async () => {
     if (!selectedAvatar) {
-      showError("Lütfen bir karakter avatar'ı seçin");
+      showError("Por favor, selecciona un avatar de personaje");
       return;
     }
 
     if (!outfitOptions.clothingType) {
-      showError("Lütfen kıyafet tipi seçin");
+      showError("Por favor, selecciona un tipo de ropa");
       return;
     }
 
@@ -133,14 +133,14 @@ export default function CharacterOutfitGenerator() {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || "Görsel oluşturulamadı");
+        throw new Error(data.error || "No se pudo generar la imagen");
       }
 
       setGeneratedImage(data.imageUrl);
-      success("Kıyafetli görsel başarıyla oluşturuldu!");
+      success("¡Imagen con outfit generada correctamente!");
     } catch (error: any) {
       console.error("Error generating outfit image:", error);
-      showError(error.message || "Görsel oluşturulurken bir hata oluştu");
+      showError(error.message || "Ocurrió un error al generar la imagen");
     } finally {
       setIsGenerating(false);
     }
@@ -155,7 +155,7 @@ export default function CharacterOutfitGenerator() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    success("Görsel indirildi!");
+    success("¡Imagen descargada!");
   };
 
   return (
@@ -163,10 +163,10 @@ export default function CharacterOutfitGenerator() {
       <ToastContainer toasts={toasts} onClose={removeToast} />
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Karakter Kıyafet Oluşturucu
+          Generador de outfits para personajes
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          AI ile oluşturulmuş karakterinize kıyafet giydirin
+          Viste a tu personaje creado con IA
         </p>
       </div>
 
@@ -176,12 +176,12 @@ export default function CharacterOutfitGenerator() {
           {/* Avatar Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-              Karakter Avatar'ı Seçin *
+              Selecciona el avatar del personaje *
             </label>
             {savedAvatars.length === 0 ? (
               <div className="p-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                 <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                  Henüz kaydedilmiş avatar yok. Önce Avatar Generator'dan bir avatar oluşturun.
+                  Aún no hay avatares guardados. Primero crea un avatar en el Generador de Avatares.
                 </p>
               </div>
             ) : (
@@ -218,7 +218,7 @@ export default function CharacterOutfitGenerator() {
                   />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">
-                      Seçili Karakter
+                      Personaje seleccionado
                     </p>
                     <p className="text-xs text-gray-600 dark:text-gray-400">
                       {selectedAvatar.prompt}
@@ -232,7 +232,7 @@ export default function CharacterOutfitGenerator() {
           {/* Clothing Type */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Kıyafet Tipi *
+              Tipo de ropa *
             </label>
             <div className="grid grid-cols-4 gap-2">
               {clothingTypes.map((type) => (
@@ -259,7 +259,7 @@ export default function CharacterOutfitGenerator() {
           {/* Color Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Renk (Opsiyonel)
+              Color (opcional)
             </label>
             <select
               value={outfitOptions.color || ""}
@@ -268,7 +268,7 @@ export default function CharacterOutfitGenerator() {
               }
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
             >
-              <option value="">Renk Seçin</option>
+              <option value="">Selecciona un color</option>
               {colors.map((color) => (
                 <option key={color} value={color}>
                   {color}
@@ -280,7 +280,7 @@ export default function CharacterOutfitGenerator() {
           {/* Style Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Stil (Opsiyonel)
+              Estilo (opcional)
             </label>
             <select
               value={outfitOptions.style || ""}
@@ -289,7 +289,7 @@ export default function CharacterOutfitGenerator() {
               }
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
             >
-              <option value="">Stil Seçin</option>
+              <option value="">Selecciona un estilo</option>
               {styles.map((style) => (
                 <option key={style} value={style}>
                   {style}
@@ -301,7 +301,7 @@ export default function CharacterOutfitGenerator() {
           {/* Brand Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Marka (Opsiyonel)
+              Marca (opcional)
             </label>
             <input
               type="text"
@@ -309,7 +309,7 @@ export default function CharacterOutfitGenerator() {
               onChange={(e) =>
                 setOutfitOptions({ ...outfitOptions, brand: e.target.value })
               }
-              placeholder="Örn: Victoria's Secret, Calvin Klein"
+              placeholder="Ej: Victoria's Secret, Calvin Klein"
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
             />
           </div>
@@ -317,14 +317,14 @@ export default function CharacterOutfitGenerator() {
           {/* Additional Details */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Ek Detaylar (Opsiyonel)
+              Detalles adicionales (opcional)
             </label>
             <textarea
               value={outfitOptions.additionalDetails || ""}
               onChange={(e) =>
                 setOutfitOptions({ ...outfitOptions, additionalDetails: e.target.value })
               }
-              placeholder="Örn: dantel detaylar, çiçek desenli, şeffaf kumaş"
+              placeholder="Ej: detalles de encaje, estampado floral, tejido transparente"
               rows={2}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
             />
@@ -333,13 +333,13 @@ export default function CharacterOutfitGenerator() {
           {/* Format Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Format
+              Formato
             </label>
             <div className="flex gap-2">
               {[
-                { value: "9:16" as const, name: "Dikey", desc: "1080×1920" },
-                { value: "1:1" as const, name: "Kare", desc: "1024×1024" },
-                { value: "16:9" as const, name: "Yatay", desc: "1920×1080" },
+                { value: "9:16" as const, name: "Vertical", desc: "1080×1920" },
+                { value: "1:1" as const, name: "Cuadrado", desc: "1024×1024" },
+                { value: "16:9" as const, name: "Horizontal", desc: "1920×1080" },
               ].map((format) => (
                 <button
                   key={format.value}
@@ -367,7 +367,7 @@ export default function CharacterOutfitGenerator() {
             disabled={isGenerating || !selectedAvatar || !outfitOptions.clothingType}
             className="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
           >
-            {isGenerating ? "Görsel Oluşturuluyor..." : "Kıyafetli Görsel Oluştur"}
+            {isGenerating ? "Generando imagen..." : "Generar imagen con outfit"}
           </button>
         </div>
 
@@ -378,7 +378,7 @@ export default function CharacterOutfitGenerator() {
               <LoadingState
                 status={{
                   status: "generating-video",
-                  message: "Kıyafetli görsel oluşturuluyor...",
+                  message: "Generando imagen con outfit...",
                   progress: undefined,
                 }}
               />
@@ -401,13 +401,13 @@ export default function CharacterOutfitGenerator() {
                   onClick={handleDownload}
                   className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                 >
-                  📥 İndir
+                  📥 Descargar
                 </button>
                 <button
                   onClick={() => setGeneratedImage(null)}
                   className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                 >
-                  ✕ Temizle
+                  ✕ Limpiar
                 </button>
               </div>
             </div>
@@ -417,7 +417,7 @@ export default function CharacterOutfitGenerator() {
             <div className="flex items-center justify-center h-96 bg-gray-100 dark:bg-gray-700 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
               <div className="text-center text-gray-500 dark:text-gray-400">
                 <div className="text-4xl mb-2">👗</div>
-                <p>Kıyafetli görsel burada görünecek</p>
+                <p>La imagen con outfit aparecerá aquí</p>
               </div>
             </div>
           )}
@@ -426,9 +426,9 @@ export default function CharacterOutfitGenerator() {
 
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>💡 İpucu:</strong> Önce Avatar Generator'dan bir karakter oluşturun. 
-          Sonra bu karakteri seçip, istediğiniz kıyafet tipini, rengini ve stilini belirleyin. 
-          AI aynı karakteri kıyafetli olarak oluşturacaktır.
+          <strong>💡 Consejo:</strong> Primero crea un personaje en el Generador de Avatares.
+          Luego selecciónalo, elige el tipo de ropa, color y estilo que desees.
+          La IA generará al mismo personaje con el outfit indicado.
         </p>
       </div>
     </div>

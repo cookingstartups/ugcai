@@ -30,7 +30,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-purple-600/10 rounded-full -mr-16 -mt-16"></div>
           <div className="relative">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Toplam Video</h3>
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Total de videos</h3>
               <div className="p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg">
                 <span className="text-2xl">📹</span>
               </div>
@@ -39,7 +39,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
               {analytics?.totalVideos || 0}
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {analytics?.totalDuration ? formatDuration(analytics.totalDuration) : "0s"} toplam süre
+              {analytics?.totalDuration ? formatDuration(analytics.totalDuration) : "0s"} duración total
             </p>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-full -mr-16 -mt-16"></div>
           <div className="relative">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Depolama</h3>
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Almacenamiento</h3>
               <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
                 <span className="text-2xl">💾</span>
               </div>
@@ -56,7 +56,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
             <div className="text-5xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent">
               {analytics?.totalStorage ? formatStorage(analytics.totalStorage) : "0 B"}
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Tahmini kullanım</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Uso estimado</p>
           </div>
         </div>
 
@@ -64,7 +64,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-full -mr-16 -mt-16"></div>
           <div className="relative">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Başarı Oranı</h3>
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Tasa de éxito</h3>
               <div className="p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg">
                 <span className="text-2xl">✓</span>
               </div>
@@ -72,7 +72,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
             <div className="text-5xl font-bold mb-2 bg-gradient-to-r from-green-600 to-green-800 dark:from-green-400 dark:to-green-600 bg-clip-text text-transparent">
               {analytics?.successRate?.toFixed(1) || "100"}%
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Video oluşturma başarısı</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Éxito en la generación de videos</p>
           </div>
         </div>
       </div>
@@ -83,9 +83,9 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           <div className="flex justify-between items-center mb-6">
             <div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                Son Videolar
+                Videos recientes
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Son oluşturduğunuz içerikler</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Los últimos contenidos que generaste</p>
             </div>
             <button
               type="button"
@@ -95,7 +95,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
               }}
               className="px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-colors"
             >
-              Tümünü Gör →
+              Ver todos →
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -125,14 +125,14 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
                   </p>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-gray-500 dark:text-gray-400">
-                      {new Date(video.createdAt).toLocaleDateString("tr-TR")}
+                      {new Date(video.createdAt).toLocaleDateString("es-ES")}
                     </span>
                     <a
                       href={video.videoUrl}
                       download
                       className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-xs font-medium"
                     >
-                      İndir
+                      Descargar
                     </a>
                   </div>
                 </div>
@@ -146,9 +146,9 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
         <div className="mb-6">
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-            Hızlı Erişim
+            Acceso rápido
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Tüm araçlara tek tıkla erişin</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Accede a todas las herramientas con un clic</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           <button
@@ -161,10 +161,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🎬</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Yeni Video
+              Nuevo video
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              Metinden AI videoları oluştur
+              Genera videos con IA desde texto
             </div>
           </button>
           <button
@@ -180,7 +180,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
               Avatar
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              AI ile karakter avatar'ı oluştur
+              Crea avatares de personajes con IA
             </div>
           </button>
           <button
@@ -193,10 +193,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🖼️</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Görsel
+              Imagen
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              AI ile görsel üret ve poz varyasyonları oluştur
+              Genera imágenes con IA y variaciones de pose
             </div>
           </button>
           <button
@@ -209,10 +209,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">👗</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Kıyafet
+              Outfit
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              Karaktere kıyafet giydir
+              Viste al personaje con ropa
             </div>
           </button>
           <button
@@ -225,10 +225,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🔗</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Birleştir
+              Combinar
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              Birden fazla videoyu birleştir
+              Combina varios videos en uno
             </div>
           </button>
           <button
@@ -241,10 +241,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">📁</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Koleksiyonlar
+              Colecciones
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              Videolarınızı organize edin
+              Organiza tus videos
             </div>
           </button>
           <button
@@ -257,10 +257,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">📦</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Toplu İşlem
+              Lote
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              Çoklu video toplu üret
+              Genera múltiples videos en lote
             </div>
           </button>
           <button
@@ -273,10 +273,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">📚</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Geçmiş
+              Historial
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              Oluşturduğunuz videoları görüntüle
+              Visualiza los videos que has generado
             </div>
           </button>
           <button
@@ -292,7 +292,7 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
               Analytics
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              İstatistikleri ve analizleri görüntüle
+              Visualiza estadísticas y análisis
             </div>
           </button>
           <button
@@ -305,10 +305,10 @@ export default function DashboardWidgets({ onQuickAction }: DashboardWidgetsProp
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">💎</div>
             <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-              Takı
+              Joyería
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
-              Avatar'a takı ekle ve düzenle
+              Añade y edita joyería en el avatar
             </div>
           </button>
         </div>

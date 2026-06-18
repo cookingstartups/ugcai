@@ -49,7 +49,7 @@ export default function TextInput({
           htmlFor="text-input"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
         >
-          Video Metni
+          Texto del video
         </label>
         <textarea
           id="text-input"
@@ -63,15 +63,15 @@ export default function TextInput({
               ? "border-red-300 dark:border-red-600"
               : "border-gray-300 dark:border-gray-600"
           }`}
-          placeholder="Video için metninizi buraya yazın..."
+          placeholder="Escribe aquí el texto para tu video..."
         />
         <div className="mt-2 flex justify-between items-center">
           <div>
             <p className={`text-sm ${value && !validation.valid ? "text-red-600 dark:text-red-400" : "text-gray-500 dark:text-gray-400"}`}>
-              {value.length} / 5000 karakter
+              {value.length} / 5000 caracteres
               {estimatedDuration > 0 && (
                 <span className="ml-2">
-                  (Tahmini süre: ~{estimatedDuration}s)
+                  (Duración estimada: ~{estimatedDuration}s)
                 </span>
               )}
             </p>
@@ -89,7 +89,7 @@ export default function TextInput({
         disabled={disabled || !validation.valid}
         className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
       >
-        {disabled ? "Oluşturuluyor..." : "Video Oluştur"}
+        {disabled ? "Generando..." : "Generar video"}
       </button>
     </form>
   );

@@ -25,7 +25,7 @@ export default function Home() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
               </span>
-              AI Destekli İçerik Üretim Platformu
+              Plataforma de Creación de Contenido con IA
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight">
               <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 dark:from-purple-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
@@ -35,27 +35,27 @@ export default function Home() {
               Generator
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Metninizi girin, AI ile profesyonel influencer videoları, görseller ve avatar'lar oluşturun. 
-              <span className="text-purple-600 dark:text-purple-400 font-semibold"> Tek tıkla içerik üretin.</span>
+              Escribe tu texto y crea videos profesionales de influencer, imágenes y avatares con IA.
+              <span className="text-purple-600 dark:text-purple-400 font-semibold"> Genera contenido con un solo clic.</span>
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Hızlı Üretim</span>
+                <span>Generación Rápida</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Yüksek Kalite</span>
+                <span>Alta Calidad</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Kolay Kullanım</span>
+                <span>Fácil de Usar</span>
               </div>
             </div>
           </div>

@@ -75,7 +75,7 @@ export default function SubtitleEditor({
     const newSubtitle: SubtitleEntry = {
       start: videoDuration / 2,
       end: videoDuration / 2 + 2,
-      text: "Yeni altyazı metni",
+      text: "Nuevo texto de subtítulo",
     };
     setSubtitles([...subtitles, newSubtitle].sort((a, b) => a.start - b.start));
   };
@@ -94,7 +94,7 @@ export default function SubtitleEditor({
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Altyazı Düzenleyici
+          Editor de subtítulos
         </h2>
         <div className="flex gap-2">
           {onCancel && (
@@ -102,7 +102,7 @@ export default function SubtitleEditor({
               onClick={onCancel}
               className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
-              İptal
+              Cancelar
             </button>
           )}
           {onSave && (
@@ -110,7 +110,7 @@ export default function SubtitleEditor({
               onClick={() => onSave(subtitles)}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
-              Kaydet
+              Guardar
             </button>
           )}
         </div>
@@ -120,7 +120,7 @@ export default function SubtitleEditor({
       <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <div className="flex items-center gap-4">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Kelime Hızı (dakikada):
+            Velocidad (palabras por minuto):
           </label>
           <input
             type="number"
@@ -134,13 +134,13 @@ export default function SubtitleEditor({
             onClick={handleRegenerate}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
-            🔄 Yeniden Oluştur
+            🔄 Regenerar
           </button>
           <button
             onClick={handleAdd}
             className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
           >
-            ➕ Altyazı Ekle
+            ➕ Añadir subtítulo
           </button>
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function SubtitleEditor({
                     onClick={handleSaveEdit}
                     className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
                   >
-                    Kaydet
+                    Guardar
                   </button>
                   <button
                     onClick={() => {
@@ -199,7 +199,7 @@ export default function SubtitleEditor({
                     }}
                     className="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 text-sm"
                   >
-                    İptal
+                    Cancelar
                   </button>
                 </div>
               </div>
@@ -238,21 +238,21 @@ export default function SubtitleEditor({
           disabled={subtitles.length === 0}
           className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          📥 SRT İndir
+          📥 Descargar SRT
         </button>
         <button
           onClick={handleDownloadVTT}
           disabled={subtitles.length === 0}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          📥 VTT İndir
+          📥 Descargar VTT
         </button>
       </div>
 
       {subtitles.length === 0 && (
         <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
           <p className="text-yellow-800 dark:text-yellow-200 text-sm">
-            Altyazı oluşturmak için video metni ve süresi gereklidir.
+            Se necesitan el texto y la duración del video para generar subtítulos.
           </p>
         </div>
       )}

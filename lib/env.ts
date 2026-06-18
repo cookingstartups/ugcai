@@ -15,7 +15,8 @@ interface EnvConfig {
   HUGGINGFACE_API_KEY?: string;
 }
 
-const requiredEnvVars = ["REPLICATE_API_TOKEN", "ELEVENLABS_API_KEY"] as const;
+// All vars are optional — app uses fal.ai + Edge TTS by default (no keys required for basic use)
+const requiredEnvVars = [] as const;
 const optionalEnvVars = ["ELEVENLABS_VOICE_ID", "NEXT_PUBLIC_APP_URL", "GEMINI_API_KEY", "GROK_API_KEY", "DEEPSEEK_API_KEY", "FAL_API_KEY", "HUGGINGFACE_API_KEY"] as const;
 
 export function validateEnv(): { valid: boolean; errors: string[] } {

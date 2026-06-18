@@ -63,17 +63,17 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="text-center mb-6">
               <div className="text-6xl mb-4">⚠️</div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                Bir Hata Oluştu
+                Se produjo un error
               </h1>
               <p className="text-gray-600 dark:text-gray-400">
-                Üzgünüz, beklenmeyen bir hata oluştu. Lütfen sayfayı yenileyin veya tekrar deneyin.
+                Lo sentimos, se produjo un error inesperado. Por favor, recarga la página o inténtalo de nuevo.
               </p>
             </div>
 
             {process.env.NODE_ENV === "development" && this.state.error && (
               <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                 <h2 className="text-lg font-semibold text-red-800 dark:text-red-200 mb-2">
-                  Hata Detayları (Development Mode)
+                  Detalles del error (Modo desarrollo)
                 </h2>
                 <pre className="text-sm text-red-700 dark:text-red-300 overflow-auto max-h-64">
                   {this.state.error.toString()}
@@ -87,13 +87,13 @@ export class ErrorBoundary extends Component<Props, State> {
                 onClick={this.handleReset}
                 className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
               >
-                Tekrar Dene
+                Intentar de nuevo
               </button>
               <button
                 onClick={() => window.location.reload()}
                 className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
               >
-                Sayfayı Yenile
+                Recargar página
               </button>
             </div>
           </div>

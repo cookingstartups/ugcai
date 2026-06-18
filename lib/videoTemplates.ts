@@ -18,8 +18,8 @@ export interface VideoTemplate {
 export const VIDEO_TEMPLATES: VideoTemplate[] = [
   {
     id: "product-showcase",
-    name: "Ürün Tanıtımı",
-    description: "Ürünlerinizi etkileyici şekilde tanıtın",
+    name: "Presentación de Producto",
+    description: "Presenta tus productos de forma impactante",
     category: "product",
     icon: "📦",
     settings: {
@@ -28,12 +28,12 @@ export const VIDEO_TEMPLATES: VideoTemplate[] = [
       style: "professional",
     },
     stylePrompt: "A professional product showcase with clean background, modern lighting, and cinematic camera movements",
-    exampleText: "Bu harika ürünü keşfedin! Yüksek kalite, uygun fiyat ve müşteri memnuniyeti garantisi.",
+    exampleText: "Descubre este increíble producto. Alta calidad, precio accesible y satisfacción garantizada.",
   },
   {
     id: "educational-tutorial",
-    name: "Eğitim Videosu",
-    description: "Bilgilendirici ve öğretici içerikler için",
+    name: "Video Educativo",
+    description: "Para contenido informativo y didáctico",
     category: "education",
     icon: "📚",
     settings: {
@@ -42,12 +42,12 @@ export const VIDEO_TEMPLATES: VideoTemplate[] = [
       style: "friendly",
     },
     stylePrompt: "An educational tutorial with clear explanations, friendly presenter, and informative visuals",
-    exampleText: "Bugün size nasıl daha verimli çalışabileceğinizi göstereceğim. İlk olarak, zaman yönetimi tekniklerinden bahsedelim...",
+    exampleText: "Hoy te voy a mostrar cómo trabajar de forma más productiva. Empecemos hablando de técnicas de gestión del tiempo...",
   },
   {
     id: "news-announcement",
-    name: "Haber Duyurusu",
-    description: "Haber ve duyurular için profesyonel format",
+    name: "Anuncio de Noticias",
+    description: "Formato profesional para noticias y comunicados",
     category: "news",
     icon: "📰",
     settings: {
@@ -56,12 +56,12 @@ export const VIDEO_TEMPLATES: VideoTemplate[] = [
       style: "professional",
     },
     stylePrompt: "A news announcement with professional presenter, newsroom background, and authoritative tone",
-    exampleText: "Önemli bir duyuru: Yeni özellikler ve güncellemeler hakkında bilgi vermek istiyoruz...",
+    exampleText: "Comunicado importante: queremos informarte sobre las nuevas funciones y actualizaciones...",
   },
   {
     id: "social-media-short",
-    name: "Sosyal Medya Kısa Video",
-    description: "Instagram, TikTok için kısa ve etkileyici videolar",
+    name: "Video Corto para Redes Sociales",
+    description: "Videos cortos e impactantes para Instagram y TikTok",
     category: "social",
     icon: "📱",
     settings: {
@@ -70,12 +70,12 @@ export const VIDEO_TEMPLATES: VideoTemplate[] = [
       style: "energetic",
     },
     stylePrompt: "A short, energetic social media video with vibrant colors, dynamic movements, and engaging visuals",
-    exampleText: "Bu içeriği kaçırmayın! Hemen izleyin ve beğenmeyi unutmayın! 🎉",
+    exampleText: "No te pierdas este contenido. Míralo ahora y no olvides darle like. 🎉",
   },
   {
     id: "marketing-promo",
-    name: "Pazarlama Promosyonu",
-    description: "Ürün ve hizmet promosyonları için",
+    name: "Promoción de Marketing",
+    description: "Para promocionar productos y servicios",
     category: "marketing",
     icon: "🎯",
     settings: {
@@ -84,12 +84,12 @@ export const VIDEO_TEMPLATES: VideoTemplate[] = [
       style: "energetic",
     },
     stylePrompt: "A marketing promotion with compelling visuals, persuasive presentation, and call-to-action",
-    exampleText: "Özel fırsat! Sınırlı süre için %50 indirim. Hemen satın alın ve fırsatı kaçırmayın!",
+    exampleText: "Oferta especial: 50% de descuento por tiempo limitado. Compra ahora y no dejes pasar esta oportunidad.",
   },
   {
     id: "entertainment-fun",
-    name: "Eğlence Videosu",
-    description: "Eğlenceli ve komik içerikler için",
+    name: "Video de Entretenimiento",
+    description: "Para contenido divertido y con humor",
     category: "entertainment",
     icon: "🎬",
     settings: {
@@ -98,7 +98,7 @@ export const VIDEO_TEMPLATES: VideoTemplate[] = [
       style: "energetic",
     },
     stylePrompt: "An entertaining video with fun atmosphere, playful visuals, and engaging content",
-    exampleText: "Bugün size çok komik bir hikaye anlatacağım. Hazır mısınız? O zaman başlayalım! 😄",
+    exampleText: "Hoy te voy a contar una historia muy graciosa. ¿Estás listo? ¡Empezamos! 😄",
   },
 ];
 

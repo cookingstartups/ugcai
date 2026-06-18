@@ -23,7 +23,7 @@ export default function AITextSuggestions({
 
   const handleGenerateSuggestion = async () => {
     if (!currentText.trim() || currentText.length < 10) {
-      showError("Metin önerisi için en az 10 karakter gerekli");
+      showError("Se necesitan al menos 10 caracteres para generar una sugerencia");
       return;
     }
 
@@ -46,13 +46,13 @@ export default function AITextSuggestions({
       const data = await response.json();
 
       if (!data.success) {
-        throw new Error(data.error || "Metin önerisi oluşturulamadı");
+        throw new Error(data.error || "No se pudo generar la sugerencia de texto");
       }
 
       setSuggestion(data.result);
-      success("Metin önerisi oluşturuldu!");
+      success("¡Sugerencia de texto generada!");
     } catch (err: any) {
-      showError(err.message || "Metin önerisi oluşturulurken bir hata oluştu");
+      showError(err.message || "Ocurrió un error al generar la sugerencia de texto");
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,7 @@ export default function AITextSuggestions({
       <div className="flex items-center gap-2 mb-2">
         <span className="text-2xl">✨</span>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          AI Metin Önerileri
+          Sugerencias de Texto con IA
         </h3>
       </div>
 
@@ -84,12 +84,12 @@ export default function AITextSuggestions({
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            <span>Öneri Oluşturuluyor...</span>
+            <span>Generando sugerencia...</span>
           </>
         ) : (
           <>
             <span>✨</span>
-            <span>AI ile Metin Önerisi Al</span>
+            <span>Obtener sugerencia con IA</span>
           </>
         )}
       </button>
@@ -97,7 +97,7 @@ export default function AITextSuggestions({
       {suggestion && (
         <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-700">
           <div className="flex justify-between items-start mb-2">
-            <h4 className="font-medium text-gray-900 dark:text-white">Önerilen Metin:</h4>
+            <h4 className="font-medium text-gray-900 dark:text-white">Texto sugerido:</h4>
             <button
               onClick={() => setSuggestion(null)}
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
@@ -113,17 +113,17 @@ export default function AITextSuggestions({
               onClick={() => {
                 onSuggestionSelect(suggestion);
                 setSuggestion(null);
-                success("Metin güncellendi!");
+                success("¡Texto actualizado!");
               }}
               className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
             >
-              ✓ Bu Metni Kullan
+              ✓ Usar este texto
             </button>
             <button
               onClick={() => setSuggestion(null)}
               className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
-              İptal
+              Cancelar
             </button>
           </div>
         </div>

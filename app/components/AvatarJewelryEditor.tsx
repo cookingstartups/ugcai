@@ -41,13 +41,13 @@ export default function AvatarJewelryEditor() {
 
     // Validate file type
     if (!file.type.startsWith("image/")) {
-      showError("Lütfen bir görsel dosyası seçin");
+      showError("Por favor, selecciona un archivo de imagen");
       return;
     }
 
     // Validate file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
-      showError("Dosya boyutu 10MB'dan küçük olmalıdır");
+      showError("El archivo debe ser menor de 10 MB");
       return;
     }
 
@@ -71,14 +71,14 @@ export default function AvatarJewelryEditor() {
       new URL(url);
       setJewelryImage(url);
     } catch {
-      showError("Geçersiz URL formatı");
+      showError("Formato de URL no válido");
     }
   };
 
   // Combine avatar and jewelry using canvas
   const combineImages = async () => {
     if (!selectedAvatar || !jewelryImage) {
-      showError("Lütfen avatar ve takı görseli seçin");
+      showError("Por favor, selecciona un avatar y una imagen de joyería");
       return;
     }
 
@@ -88,12 +88,12 @@ export default function AvatarJewelryEditor() {
     try {
       const canvas = canvasRef.current;
       if (!canvas) {
-        throw new Error("Canvas bulunamadı");
+        throw new Error("No se encontró el canvas");
       }
 
       const ctx = canvas.getContext("2d");
       if (!ctx) {
-        throw new Error("Canvas context alınamadı");
+        throw new Error("No se pudo obtener el contexto del canvas");
       }
 
       // Load avatar image
@@ -150,10 +150,10 @@ export default function AvatarJewelryEditor() {
       // Convert canvas to image
       const resultUrl = canvas.toDataURL("image/png");
       setResultImage(resultUrl);
-      success("Avatar ve takı başarıyla birleştirildi!");
+      success("¡Avatar y joyería combinados correctamente!");
     } catch (error: any) {
       console.error("Error combining images:", error);
-      showError(error.message || "Görseller birleştirilirken bir hata oluştu");
+      showError(error.message || "Ocurrió un error al combinar las imágenes");
     } finally {
       setIsProcessing(false);
     }
@@ -162,22 +162,22 @@ export default function AvatarJewelryEditor() {
   // Save combined result
   const handleSaveResult = () => {
     if (!resultImage || !selectedAvatar) {
-      showError("Kaydetmek için birleştirilmiş görsel gerekli");
+      showError("Se necesita una imagen combinada para guardar");
       return;
     }
 
     try {
-      const newPrompt = `${selectedAvatar.prompt} - Takı ile`;
+      const newPrompt = `${selectedAvatar.prompt} - Con joyería`;
       saveAvatar(
         resultImage,
         newPrompt,
         selectedAvatar.model,
         [...(selectedAvatar.tags || []), "jewelry", "combined"]
       );
-      success("Birleştirilmiş avatar kaydedildi!");
+      success("¡Avatar combinado guardado!");
     } catch (error: any) {
       console.error("Error saving result:", error);
-      showError(error.message || "Kaydetme sırasında bir hata oluştu");
+      showError(error.message || "Ocurrió un error al guardar");
     }
   };
 
@@ -191,7 +191,7 @@ export default function AvatarJewelryEditor() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    success("Görsel indirildi!");
+    success("¡Imagen descargada!");
   };
 
   // Reset position
@@ -210,10 +210,10 @@ export default function AvatarJewelryEditor() {
       
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Avatar Takı Giydirme
+          Editor de joyería para avatares
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          Kaydedilmiş avatarlarınıza takı görseli ekleyin ve birleştirin
+          Añade imágenes de joyería a tus avatares guardados y combínalos
         </p>
       </div>
 
@@ -222,15 +222,15 @@ export default function AvatarJewelryEditor() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Avatar Seçin
+              Seleccionar avatar
             </label>
             {savedAvatars.length === 0 ? (
               <div className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-center">
                 <p className="text-gray-500 dark:text-gray-400">
-                  Henüz kaydedilmiş avatar yok
+                  Aún no hay avatares guardados
                 </p>
                 <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">
-                  Önce Avatar Oluşturucu'da bir avatar oluşturup kaydedin
+                  Primero crea y guarda un avatar en el Generador de Avatares
                 </p>
               </div>
             ) : (
@@ -264,13 +264,13 @@ export default function AvatarJewelryEditor() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Takı Görseli
+              Imagen de joyería
             </label>
             
             {/* File Upload */}
             <div className="mb-4">
               <label className="block text-xs text-gray-600 dark:text-gray-400 mb-2">
-                Dosya Yükle
+                Subir archivo
               </label>
               <input
                 type="file"
@@ -289,7 +289,7 @@ export default function AvatarJewelryEditor() {
             {/* URL Input */}
             <div className="mb-4">
               <label className="block text-xs text-gray-600 dark:text-gray-400 mb-2">
-                veya URL Girin
+                o introduce una URL
               </label>
               <input
                 type="url"
@@ -303,7 +303,7 @@ export default function AvatarJewelryEditor() {
             {jewelryImage && (
               <div className="mt-4 p-3 border border-gray-200 dark:border-gray-700 rounded-lg">
                 <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                  Takı Önizleme
+                  Vista previa de la joyería
                 </p>
                 <img
                   src={jewelryImage}
@@ -318,13 +318,13 @@ export default function AvatarJewelryEditor() {
           {selectedAvatar && jewelryImage && (
             <div className="space-y-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
               <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Pozisyon Ayarları
+                Ajustes de posición
               </h3>
 
               {/* X Position */}
               <div>
                 <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
-                  X Pozisyonu: {position.x.toFixed(0)}%
+                  Posición X: {position.x.toFixed(0)}%
                 </label>
                 <input
                   type="range"
@@ -341,7 +341,7 @@ export default function AvatarJewelryEditor() {
               {/* Y Position */}
               <div>
                 <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
-                  Y Pozisyonu: {position.y.toFixed(0)}%
+                  Posición Y: {position.y.toFixed(0)}%
                 </label>
                 <input
                   type="range"
@@ -358,7 +358,7 @@ export default function AvatarJewelryEditor() {
               {/* Scale */}
               <div>
                 <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
-                  Boyut: {(position.scale * 100).toFixed(0)}%
+                  Tamaño: {(position.scale * 100).toFixed(0)}%
                 </label>
                 <input
                   type="range"
@@ -379,7 +379,7 @@ export default function AvatarJewelryEditor() {
               {/* Rotation */}
               <div>
                 <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
-                  Döndürme: {position.rotation.toFixed(0)}°
+                  Rotación: {position.rotation.toFixed(0)}°
                 </label>
                 <input
                   type="range"
@@ -400,7 +400,7 @@ export default function AvatarJewelryEditor() {
                 onClick={resetPosition}
                 className="w-full px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors text-sm"
               >
-                Sıfırla
+                Restablecer
               </button>
             </div>
           )}
@@ -412,7 +412,7 @@ export default function AvatarJewelryEditor() {
               disabled={isProcessing}
               className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              {isProcessing ? "Birleştiriliyor..." : "🔄 Birleştir"}
+              {isProcessing ? "Combinando..." : "🔄 Combinar"}
             </button>
           )}
         </div>
@@ -421,7 +421,7 @@ export default function AvatarJewelryEditor() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Sonuç
+              Resultado
             </label>
 
             {isProcessing && (
@@ -429,7 +429,7 @@ export default function AvatarJewelryEditor() {
                 <LoadingState
                   status={{
                     status: "generating-video",
-                    message: "Görseller birleştiriliyor...",
+                    message: "Combinando imágenes...",
                     progress: undefined,
                   }}
                 />
@@ -450,13 +450,13 @@ export default function AvatarJewelryEditor() {
                     onClick={handleSaveResult}
                     className="flex-1 bg-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    💾 Kaydet
+                    💾 Guardar
                   </button>
                   <button
                     onClick={handleDownload}
                     className="flex-1 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    📥 İndir
+                    📥 Descargar
                   </button>
                 </div>
               </div>
@@ -478,9 +478,9 @@ export default function AvatarJewelryEditor() {
                       d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
-                  <p className="text-lg font-medium">Sonuç burada görünecek</p>
+                  <p className="text-lg font-medium">El resultado aparecerá aquí</p>
                   <p className="text-sm mt-2">
-                    Avatar ve takı seçip birleştirin
+                    Selecciona un avatar y joyería, luego combínalos
                   </p>
                 </div>
               </div>
@@ -494,10 +494,9 @@ export default function AvatarJewelryEditor() {
 
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>💡 İpucu:</strong> Takı görselini yükledikten sonra pozisyon,
-          boyut ve döndürme ayarlarını kullanarak takıyı avatara uygun şekilde
-          yerleştirin. "Birleştir" butonuna tıklayarak sonucu önizleyin ve
-          kaydedin.
+          <strong>💡 Consejo:</strong> Tras subir la imagen de la joyería, usa los ajustes de
+          posición, tamaño y rotación para colocarla sobre el avatar.
+          Pulsa "Combinar" para previsualizar el resultado y guardarlo.
         </p>
       </div>
     </div>

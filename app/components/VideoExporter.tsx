@@ -29,7 +29,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
     setExportUrl(null);
 
     try {
-      info("FFmpeg yükleniyor... Bu ilk kullanımda biraz zaman alabilir.");
+      info("Cargando FFmpeg... Esto puede tardar un momento en el primer uso.");
 
       // Map quality from ExportQuality to ffmpeg quality
       const qualityMap: Record<ExportQuality, "low" | "medium" | "high"> = {
@@ -57,7 +57,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
       // Create object URL from blob
       const url = URL.createObjectURL(blob);
       setExportUrl(url);
-      success("Video başarıyla export edildi!");
+      success("¡Video exportado correctamente!");
 
       // Auto-download if user wants
       const filename = generateExportFilename(
@@ -67,7 +67,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
       );
       downloadVideo(url, filename);
     } catch (err: any) {
-      showError(err.message || "Video export edilemedi");
+      showError(err.message || "No se pudo exportar el video");
     } finally {
       setExporting(false);
       if (exportProgress < 100) {
@@ -85,7 +85,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
         exportOptions.quality
       );
       downloadVideo(videoUrl, filename);
-      success("Video indiriliyor...");
+      success("Descargando video...");
     } else {
       const filename = generateExportFilename(
         videoTitle,
@@ -93,7 +93,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
         exportOptions.quality
       );
       downloadVideo(exportUrl, filename);
-      success("Export edilmiş video indiriliyor...");
+      success("Descargando video exportado...");
     }
   };
 
@@ -108,7 +108,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
             onClick={onClose}
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
           >
-            ✕ Kapat
+            ✕ Cerrar
           </button>
         )}
       </div>
@@ -156,10 +156,10 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
                     : "bg-white dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-500 border-2 border-gray-300 dark:border-gray-500"
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                {quality === "low" && "Düşük"}
-                {quality === "medium" && "Orta"}
-                {quality === "high" && "Yüksek"}
-                {quality === "original" && "Orijinal"}
+                {quality === "low" && "Baja"}
+                {quality === "medium" && "Media"}
+                {quality === "high" && "Alta"}
+                {quality === "original" && "Original"}
               </button>
             ))}
           </div>
@@ -196,7 +196,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
           <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-blue-900 dark:text-blue-200">
-                Video export ediliyor...
+                Exportando video...
               </span>
               <span className="text-sm text-blue-700 dark:text-blue-300">
                 {Math.round(exportProgress)}%
@@ -210,7 +210,7 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
             </div>
             {exportProgress < 10 && (
               <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
-                FFmpeg yükleniyor... İlk kullanımda bu işlem biraz zaman alabilir.
+                Cargando FFmpeg... Este proceso puede tardar un momento en el primer uso.
               </p>
             )}
           </div>
@@ -220,8 +220,8 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
         {!exporting && (
           <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
             <p className="text-sm text-blue-800 dark:text-blue-200">
-              <strong>Not:</strong> Video export işlemi tarayıcınızda gerçekleştirilir.
-              İlk kullanımda FFmpeg yükleneceği için biraz zaman alabilir.
+              <strong>Nota:</strong> La exportación del video se realiza en tu navegador.
+              En el primer uso puede tardar un momento mientras se carga FFmpeg.
             </p>
           </div>
         )}
@@ -239,10 +239,10 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <span>Export Ediliyor... ({Math.round(exportProgress)}%)</span>
+                <span>Exportando... ({Math.round(exportProgress)}%)</span>
               </>
             ) : (
-              "Export Et"
+              "Exportar"
             )}
           </button>
           <button
@@ -250,14 +250,14 @@ export default function VideoExporter({ videoUrl, videoTitle = "video", onClose 
             disabled={exporting}
             className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            📥 İndir
+            📥 Descargar
           </button>
         </div>
 
         {exportUrl && (
           <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
             <p className="text-sm text-green-800 dark:text-green-200">
-              ✓ Video başarıyla export edildi!
+              ✓ ¡Video exportado correctamente!
             </p>
           </div>
         )}

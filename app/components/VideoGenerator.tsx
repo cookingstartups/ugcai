@@ -319,17 +319,17 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
   const getStatusMessage = (status: string): string => {
     switch (status) {
       case "starting":
-        return "Video oluşturma başlatılıyor...";
+        return "Iniciando generación de video...";
       case "processing":
-        return "Video oluşturuluyor... Bu işlem birkaç dakika sürebilir.";
+        return "Generando video... Esto puede tardar varios minutos.";
       case "succeeded":
-        return "Video hazır!";
+        return "¡Video listo!";
       case "failed":
-        return "Video oluşturulamadı";
+        return "No se pudo generar el video";
       case "canceled":
-        return "Video oluşturma iptal edildi";
+        return "Generación de video cancelada";
       default:
-        return "Video oluşturuluyor...";
+        return "Generando video...";
     }
   };
 
@@ -340,7 +340,7 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
       const data: VideoStatusResponse = await response.json();
 
       if (!data.success) {
-        throw new Error(data.error || "Video durumu kontrol edilemedi");
+        throw new Error(data.error || "No se pudo verificar el estado del video");
       }
 
       // Update progress
@@ -354,7 +354,7 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
       if (data.status === "succeeded" && data.output) {
         const finalVideoUrl = data.output;
         setVideoUrl(finalVideoUrl);
-        setStatus({ status: "completed", message: "Video hazır!", progress: 100 });
+        setStatus({ status: "completed", message: "¡Video listo!", progress: 100 });
         if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
           pollingIntervalRef.current = null;
@@ -398,16 +398,16 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
           thumbnail: thumbnailUrl,
         });
         
-        success("Video başarıyla oluşturuldu!");
+        success("¡Video generado correctamente!");
       } else if (data.status === "failed" || data.status === "canceled") {
-        throw new Error(data.error || "Video oluşturulamadı");
+        throw new Error(data.error || "No se pudo generar el video");
       }
     } catch (err: any) {
       if (pollingIntervalRef.current) {
         clearInterval(pollingIntervalRef.current);
         pollingIntervalRef.current = null;
       }
-      const errorMessage = err.message || "Video durumu kontrol edilirken bir hata oluştu";
+      const errorMessage = err.message || "Ocurrió un error al verificar el estado del video";
       setError(errorMessage);
       setStatus({ status: "error", message: errorMessage });
       setPredictionId(null);
@@ -456,14 +456,14 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
     // Validate text input
     const textValidation = validateText(text);
     if (!textValidation.valid) {
-      setError(textValidation.error || "Geçersiz metin girişi");
+      setError(textValidation.error || "Texto no válido");
       return;
     }
 
     // Validate video settings
     const settingsValidation = validateVideoSettings(videoSettings);
     if (!settingsValidation.valid) {
-      setError(settingsValidation.error || "Geçersiz video ayarları");
+      setError(settingsValidation.error || "Configuración de video no válida");
       return;
     }
 
@@ -477,7 +477,7 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
     setVideoUrl(null);
     setAudioUrl(null);
     setPredictionId(null);
-    setStatus({ status: "generating-audio", message: "Ses oluşturuluyor...", progress: 0 });
+    setStatus({ status: "generating-audio", message: "Generando audio...", progress: 0 });
 
     // Clear any existing polling
     if (pollingIntervalRef.current) {
@@ -502,16 +502,16 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
       const audioData = await audioResponse.json();
 
       if (!audioData.success) {
-        throw new Error(audioData.error || "Ses oluşturulamadı");
+        throw new Error(audioData.error || "No se pudo generar el audio");
       }
 
       setAudioUrl(audioData.audioUrl);
       setStatus({
         status: "generating-video",
-        message: "Video oluşturma başlatılıyor...",
+        message: "Iniciando generación de video...",
         progress: 10,
       });
-      info("Ses oluşturuldu, video oluşturma başlatılıyor...");
+      info("Audio generado, iniciando generación de video...");
 
       // Step 2: Create video prediction (with polling enabled)
       // Build prompt based on style
@@ -546,13 +546,13 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
         // Check if it's a rate limit error
         if (videoResponse.status === 429) {
           throw new Error(
-            videoData.error || 
-            "Replicate API rate limit aşıldı. Lütfen birkaç saniye bekleyip tekrar deneyin.\n\n" +
-            "💡 İpucu: Ödeme yöntemi eklenmemiş hesaplar için limit: 6 istek/dakika.\n" +
-            "Daha yüksek limit için Replicate hesabınıza ödeme yöntemi ekleyin."
+            videoData.error ||
+            "Se superó el límite de la API de Replicate. Espera unos segundos e inténtalo de nuevo.\n\n" +
+            "💡 Consejo: El límite para cuentas sin método de pago es de 6 peticiones/minuto.\n" +
+            "Para un límite mayor, añade un método de pago a tu cuenta de Replicate."
           );
         }
-        throw new Error(videoData.error || "Video oluşturulamadı");
+        throw new Error(videoData.error || "No se pudo generar el video");
       }
 
       // Start polling if prediction ID is returned
@@ -560,14 +560,14 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
         setPredictionId(videoData.predictionId);
         setStatus({
           status: "generating-video",
-          message: "Video oluşturma başlatıldı...",
+          message: "Generación de video iniciada...",
           progress: 20,
         });
       } else if (videoData.videoUrl) {
         // Fallback: if video URL is directly returned (legacy mode)
         const finalVideoUrl = videoData.videoUrl;
         setVideoUrl(finalVideoUrl);
-        setStatus({ status: "completed", message: "Video hazır!", progress: 100 });
+        setStatus({ status: "completed", message: "¡Video listo!", progress: 100 });
         
         // Save to history
         saveVideoToHistory({
@@ -579,10 +579,10 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
           settings: videoSettings,
         });
       } else {
-        throw new Error("Video oluşturulamadı: Geçersiz yanıt");
+        throw new Error("No se pudo generar el video: respuesta no válida");
       }
     } catch (err: any) {
-      const errorMessage = err.message || "Bir hata oluştu";
+      const errorMessage = err.message || "Se produjo un error";
       setError(errorMessage);
       setStatus({ status: "error", message: errorMessage });
       if (pollingIntervalRef.current) {
@@ -649,7 +649,7 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              Ana Sayfaya Dön
+              Volver al inicio
             </button>
           </div>
         )}
@@ -745,7 +745,7 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
             <Suspense fallback={
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
                 <div className="flex items-center justify-center h-64">
-                  <div className="text-gray-500 dark:text-gray-400">Yükleniyor...</div>
+                  <div className="text-gray-500 dark:text-gray-400">Cargando...</div>
                 </div>
               </div>
             }>
@@ -809,11 +809,11 @@ export default function VideoGenerator({ initialAction, onClose }: VideoGenerato
         {audioUrl && (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 mb-6">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-              Oluşturulan Ses
+              Audio generado
             </h2>
             <audio controls className="w-full">
               <source src={audioUrl} type="audio/mpeg" />
-              Tarayıcınız ses oynatmayı desteklemiyor.
+              Tu navegador no soporta reproducción de audio.
             </audio>
           </div>
         )}

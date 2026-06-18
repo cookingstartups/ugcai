@@ -31,7 +31,7 @@ export default function BackgroundMusicEditor({
       const url = URL.createObjectURL(file);
       setMusicUrl(url);
     } else {
-      alert("Lütfen geçerli bir ses dosyası seçin (MP3, WAV, OGG, vb.)");
+      alert("Por favor, selecciona un archivo de audio válido (MP3, WAV, OGG, etc.)");
     }
   };
 
@@ -45,7 +45,7 @@ export default function BackgroundMusicEditor({
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Arka Plan Müziği
+          Música de fondo
         </h2>
         <div className="flex gap-2">
           {onCancel && (
@@ -53,7 +53,7 @@ export default function BackgroundMusicEditor({
               onClick={onCancel}
               className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
-              İptal
+              Cancelar
             </button>
           )}
           <button
@@ -61,7 +61,7 @@ export default function BackgroundMusicEditor({
             disabled={!musicFile}
             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Kaydet
+            Guardar
           </button>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function BackgroundMusicEditor({
       {/* Music File Upload */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Müzik Dosyası
+          Archivo de música
         </label>
         <input
           type="file"
@@ -79,16 +79,16 @@ export default function BackgroundMusicEditor({
         />
         {musicFile && (
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Seçilen dosya: {musicFile.name} ({(musicFile.size / 1024 / 1024).toFixed(2)} MB)
+            Archivo seleccionado: {musicFile.name} ({(musicFile.size / 1024 / 1024).toFixed(2)} MB)
           </p>
         )}
         {musicUrl && (
           <div className="mt-4">
             <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Önizleme:
+              Vista previa:
             </p>
             <audio controls src={musicUrl} className="w-full">
-              Tarayıcınız ses oynatmayı desteklemiyor.
+              Tu navegador no admite la reproducción de audio.
             </audio>
           </div>
         )}
@@ -99,7 +99,7 @@ export default function BackgroundMusicEditor({
         {/* Volume Control */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Müzik Seviyesi: {Math.round(options.volume * 100)}%
+            Volumen de música: {Math.round(options.volume * 100)}%
           </label>
           <input
             type="range"
@@ -118,14 +118,14 @@ export default function BackgroundMusicEditor({
             <span>100%</span>
           </div>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            💡 Öneri: Müzik seviyesi %20-30 arasında olmalı, böylece konuşma sesi ön planda kalır.
+            💡 Recomendación: El volumen de la música debe estar entre el 20-30% para que la voz quede en primer plano.
           </p>
         </div>
 
         {/* Fade In */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Fade In (saniye): {options.fadeIn || 0}s
+            Fade In (segundos): {options.fadeIn || 0}s
           </label>
           <input
             type="range"
@@ -143,7 +143,7 @@ export default function BackgroundMusicEditor({
         {/* Fade Out */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Fade Out (saniye): {options.fadeOut || 0}s
+            Fade Out (segundos): {options.fadeOut || 0}s
           </label>
           <input
             type="range"
@@ -173,14 +173,14 @@ export default function BackgroundMusicEditor({
             htmlFor="loop"
             className="text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Müziği döngüye al (video bitene kadar tekrarla)
+            Reproducir música en bucle (repetir hasta que termine el video)
           </label>
         </div>
 
         {/* Start Time */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Başlangıç Zamanı (saniye): {options.startTime || 0}s
+            Tiempo de inicio (segundos): {options.startTime || 0}s
           </label>
           <input
             type="number"
@@ -193,7 +193,7 @@ export default function BackgroundMusicEditor({
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
           />
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-            Müziğin videoda hangi saniyede başlayacağını belirtin.
+            Indica en qué segundo del video comenzará la música.
           </p>
         </div>
       </div>
@@ -201,12 +201,12 @@ export default function BackgroundMusicEditor({
       {/* Info */}
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>💡 İpucu:</strong> Müzik dosyası MP3, WAV, OGG formatlarında olabilir. 
-          Müzik seviyesini düşük tutarak konuşmanın net duyulmasını sağlayın.
+          <strong>💡 Consejo:</strong> El archivo de música puede estar en formato MP3, WAV u OGG.
+          Mantén el volumen bajo para que la voz se escuche con claridad.
         </p>
         <p className="text-xs text-blue-600 dark:text-blue-300 mt-2">
-          <strong>Not:</strong> Bu özellik FFmpeg ile video işleme gerektirir. 
-          Müzik ekleme işlemi biraz zaman alabilir.
+          <strong>Nota:</strong> Esta función requiere procesamiento de video con FFmpeg.
+          Añadir música puede tardar un momento.
         </p>
       </div>
     </div>

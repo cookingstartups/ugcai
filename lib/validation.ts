@@ -27,7 +27,7 @@ export function validateText(text: string): ValidationResult {
   if (!text || typeof text !== "string") {
     return {
       valid: false,
-      error: "Metin girişi gereklidir",
+      error: "El texto es obligatorio",
     };
   }
 
@@ -36,14 +36,14 @@ export function validateText(text: string): ValidationResult {
   if (sanitized.length < MIN_TEXT_LENGTH) {
     return {
       valid: false,
-      error: `Metin en az ${MIN_TEXT_LENGTH} karakter olmalıdır`,
+      error: `El texto debe tener al menos ${MIN_TEXT_LENGTH} caracteres`,
     };
   }
 
   if (sanitized.length > MAX_TEXT_LENGTH) {
     return {
       valid: false,
-      error: `Metin en fazla ${MAX_TEXT_LENGTH} karakter olabilir`,
+      error: `El texto no puede superar los ${MAX_TEXT_LENGTH} caracteres`,
     };
   }
 
@@ -58,7 +58,7 @@ export function validateText(text: string): ValidationResult {
     if (pattern.test(sanitized)) {
       return {
         valid: false,
-        error: "Metin güvenlik nedeniyle reddedildi",
+        error: "El texto fue rechazado por motivos de seguridad",
       };
     }
   }
@@ -81,7 +81,7 @@ export function validateVoiceId(voiceId: string | null | undefined): ValidationR
   if (typeof voiceId !== "string") {
     return {
       valid: false,
-      error: "Geçersiz ses ID formatı",
+      error: "Formato de ID de voz no válido",
     };
   }
 
@@ -89,7 +89,7 @@ export function validateVoiceId(voiceId: string | null | undefined): ValidationR
   if (!/^[a-zA-Z0-9]{21}$/.test(voiceId)) {
     return {
       valid: false,
-      error: "Ses ID 21 alfanumerik karakter olmalıdır",
+      error: "El ID de voz debe tener 21 caracteres alfanuméricos",
     };
   }
 
@@ -112,7 +112,7 @@ export function validateVideoSettings(settings: {
     if (!validDurations.includes(settings.duration)) {
       return {
         valid: false,
-        error: `Geçersiz video süresi. İzin verilen değerler: ${validDurations.join(", ")} saniye`,
+        error: `Duración de video no válida. Valores permitidos: ${validDurations.join(", ")} segundos`,
       };
     }
   }
@@ -123,7 +123,7 @@ export function validateVideoSettings(settings: {
     if (!validResolutions.includes(settings.resolution)) {
       return {
         valid: false,
-        error: `Geçersiz çözünürlük. İzin verilen değerler: ${validResolutions.join(", ")}`,
+        error: `Resolución no válida. Valores permitidos: ${validResolutions.join(", ")}`,
       };
     }
   }
@@ -134,7 +134,7 @@ export function validateVideoSettings(settings: {
     if (!validStyles.includes(settings.style)) {
       return {
         valid: false,
-        error: `Geçersiz video stili. İzin verilen değerler: ${validStyles.join(", ")}`,
+        error: `Estilo de video no válido. Valores permitidos: ${validStyles.join(", ")}`,
       };
     }
   }

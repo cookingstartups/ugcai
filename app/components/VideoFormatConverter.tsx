@@ -41,11 +41,11 @@ export default function VideoFormatConverter({
       if (data.success && data.videoUrl) {
         setConvertedUrl(data.videoUrl);
       } else {
-        alert("Video dönüştürülemedi: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo convertir el video: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error converting video:", error);
-      alert("Video dönüştürülürken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al convertir el video: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -69,17 +69,17 @@ export default function VideoFormatConverter({
   };
 
   const formats = [
-    { value: "mp4" as const, name: "MP4", description: "En yaygın format, tüm platformlarda çalışır", icon: "🎬" },
-    { value: "webm" as const, name: "WebM", description: "Web için optimize edilmiş, küçük dosya boyutu", icon: "🌐" },
-    { value: "gif" as const, name: "GIF", description: "Animasyonlu görüntü, sosyal medya için ideal", icon: "🖼️" },
-    { value: "mov" as const, name: "MOV", description: "Apple formatı, yüksek kalite", icon: "🍎" },
+    { value: "mp4" as const, name: "MP4", description: "Formato más común, compatible con todas las plataformas", icon: "🎬" },
+    { value: "webm" as const, name: "WebM", description: "Optimizado para la web, tamaño de archivo reducido", icon: "🌐" },
+    { value: "gif" as const, name: "GIF", description: "Imagen animada, ideal para redes sociales", icon: "🖼️" },
+    { value: "mov" as const, name: "MOV", description: "Formato Apple, alta calidad", icon: "🍎" },
   ];
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Video Format Dönüştürücü
+          Conversor de formato de video
         </h2>
         <div className="flex gap-2">
           {onCancel && (
@@ -87,7 +87,7 @@ export default function VideoFormatConverter({
               onClick={onCancel}
               className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
-              İptal
+              Cancelar
             </button>
           )}
           {onSave && convertedUrl && (
@@ -95,7 +95,7 @@ export default function VideoFormatConverter({
               onClick={handleSave}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
-              Kaydet
+              Guardar
             </button>
           )}
         </div>
@@ -104,7 +104,7 @@ export default function VideoFormatConverter({
       {/* Format Selection */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          Format Seçimi
+          Selección de formato
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {formats.map((format) => (
@@ -140,9 +140,9 @@ export default function VideoFormatConverter({
         </h3>
         <div className="flex gap-2">
           {[
-            { value: "low" as const, name: "Düşük", description: "Küçük dosya, hızlı işleme" },
-            { value: "medium" as const, name: "Orta", description: "Dengeli kalite ve boyut" },
-            { value: "high" as const, name: "Yüksek", description: "En iyi kalite, büyük dosya" },
+            { value: "low" as const, name: "Baja", description: "Archivo pequeño, procesamiento rápido" },
+            { value: "medium" as const, name: "Media", description: "Equilibrio entre calidad y tamaño" },
+            { value: "high" as const, name: "Alta", description: "Mejor calidad, archivo grande" },
           ].map((q) => (
             <button
               key={q.value}
@@ -167,14 +167,14 @@ export default function VideoFormatConverter({
           disabled={processing}
           className="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
         >
-          {processing ? `Dönüştürülüyor... ${Math.round(progress)}%` : `Dönüştür (${selectedFormat.toUpperCase()})`}
+          {processing ? `Convirtiendo... ${Math.round(progress)}%` : `Convertir (${selectedFormat.toUpperCase()})`}
         </button>
         {convertedUrl && (
           <button
             onClick={handleDownload}
             className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
           >
-            📥 İndir
+            📥 Descargar
           </button>
         )}
       </div>
@@ -195,7 +195,7 @@ export default function VideoFormatConverter({
       {convertedUrl && (
         <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
           <h4 className="text-sm font-semibold text-green-900 dark:text-green-200 mb-2">
-            Dönüştürülmüş Video ({selectedFormat.toUpperCase()})
+            Video convertido ({selectedFormat.toUpperCase()})
           </h4>
           {selectedFormat === "gif" ? (
             <img
@@ -209,7 +209,7 @@ export default function VideoFormatConverter({
               controls
               className="w-full rounded-lg"
             >
-              Tarayıcınız video oynatmayı desteklemiyor.
+              Tu navegador no soporta reproducción de video.
             </video>
           )}
         </div>
@@ -218,8 +218,8 @@ export default function VideoFormatConverter({
       {/* Info */}
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>💡 İpucu:</strong> GIF formatı dönüştürme işlemi daha uzun sürebilir. 
-          WebM formatı web siteleri için en optimize edilmiş formattır.
+          <strong>💡 Consejo:</strong> La conversión a GIF puede tardar más tiempo.
+          El formato WebM es el más optimizado para sitios web.
         </p>
       </div>
     </div>

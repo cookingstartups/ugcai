@@ -50,11 +50,11 @@ export default function VideoEffectsEditor({
       if (data.success && data.videoUrl) {
         setPreviewUrl(data.videoUrl);
       } else {
-        alert("Filtre uygulanamadı: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo aplicar el filtro: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error applying filter:", error);
-      alert("Filtre uygulanırken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al aplicar el filtro: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -83,11 +83,11 @@ export default function VideoEffectsEditor({
       if (data.success && data.videoUrl) {
         setPreviewUrl(data.videoUrl);
       } else {
-        alert("Hız değiştirilemedi: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo cambiar la velocidad: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error changing speed:", error);
-      alert("Hız değiştirilirken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al cambiar la velocidad: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -103,7 +103,7 @@ export default function VideoEffectsEditor({
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Video Efektleri
+          Efectos de video
         </h2>
         <div className="flex gap-2">
           {onCancel && (
@@ -111,7 +111,7 @@ export default function VideoEffectsEditor({
               onClick={onCancel}
               className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
-              İptal
+              Cancelar
             </button>
           )}
           {onSave && previewUrl && (
@@ -119,7 +119,7 @@ export default function VideoEffectsEditor({
               onClick={handleSave}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
-              Kaydet
+              Guardar
             </button>
           )}
         </div>
@@ -132,14 +132,14 @@ export default function VideoEffectsEditor({
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
           {[
-            { type: "brightness" as const, name: "Parlaklık", icon: "☀️" },
-            { type: "contrast" as const, name: "Kontrast", icon: "🎨" },
-            { type: "saturation" as const, name: "Doygunluk", icon: "🌈" },
-            { type: "blur" as const, name: "Bulanıklaştır", icon: "🌫️" },
-            { type: "sharpen" as const, name: "Keskinleştir", icon: "✨" },
+            { type: "brightness" as const, name: "Brillo", icon: "☀️" },
+            { type: "contrast" as const, name: "Contraste", icon: "🎨" },
+            { type: "saturation" as const, name: "Saturación", icon: "🌈" },
+            { type: "blur" as const, name: "Desenfoque", icon: "🌫️" },
+            { type: "sharpen" as const, name: "Nitidez", icon: "✨" },
             { type: "vintage" as const, name: "Vintage", icon: "📷" },
-            { type: "blackwhite" as const, name: "Siyah-Beyaz", icon: "⚫" },
-            { type: "sepia" as const, name: "Sepya", icon: "🟤" },
+            { type: "blackwhite" as const, name: "Blanco y negro", icon: "⚫" },
+            { type: "sepia" as const, name: "Sepia", icon: "🟤" },
           ].map((filter) => (
             <button
               key={filter.type}
@@ -169,7 +169,7 @@ export default function VideoEffectsEditor({
         {effects.filter && (
           <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Yoğunluk: {effects.filter.intensity}%
+              Intensidad: {effects.filter.intensity}%
             </label>
             <input
               type="range"
@@ -192,7 +192,7 @@ export default function VideoEffectsEditor({
               disabled={processing}
               className="mt-3 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {processing ? `İşleniyor... ${Math.round(progress)}%` : "Filtreyi Uygula"}
+              {processing ? `Procesando... ${Math.round(progress)}%` : "Aplicar filtro"}
             </button>
           </div>
         )}
@@ -201,11 +201,11 @@ export default function VideoEffectsEditor({
       {/* Video Speed */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          Hız Kontrolü
+          Control de velocidad
         </h3>
         <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Hız: {effects.speed ? `${effects.speed}x` : "1x"} (Normal)
+            Velocidad: {effects.speed ? `${effects.speed}x` : "1x"} (Normal)
           </label>
           <div className="flex gap-2 mb-4">
             {[0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3, 4].map((speed) => (
@@ -218,7 +218,7 @@ export default function VideoEffectsEditor({
                     : "bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500"
                 }`}
               >
-                {speed === 1 ? "1x" : speed < 1 ? `${speed}x (Yavaş)` : `${speed}x (Hızlı)`}
+                {speed === 1 ? "1x" : speed < 1 ? `${speed}x (Lento)` : `${speed}x (Rápido)`}
               </button>
             ))}
           </div>
@@ -238,7 +238,7 @@ export default function VideoEffectsEditor({
             disabled={processing || !effects.speed || effects.speed === 1}
             className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {processing ? `İşleniyor... ${Math.round(progress)}%` : "Hızı Değiştir"}
+            {processing ? `Procesando... ${Math.round(progress)}%` : "Cambiar velocidad"}
           </button>
         </div>
       </div>
@@ -247,14 +247,14 @@ export default function VideoEffectsEditor({
       {previewUrl && (
         <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
           <h4 className="text-sm font-semibold text-green-900 dark:text-green-200 mb-2">
-            Önizleme
+            Vista previa
           </h4>
           <video
             src={previewUrl}
             controls
             className="w-full rounded-lg"
           >
-            Tarayıcınız video oynatmayı desteklemiyor.
+            Tu navegador no soporta reproducción de video.
           </video>
         </div>
       )}

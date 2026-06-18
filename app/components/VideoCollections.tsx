@@ -44,7 +44,7 @@ export default function VideoCollections({
 
   const handleCreate = () => {
     if (!newCollectionName.trim()) {
-      alert("Koleksiyon adı gereklidir");
+      alert("El nombre de la colección es obligatorio");
       return;
     }
 
@@ -59,7 +59,7 @@ export default function VideoCollections({
   };
 
   const handleDelete = (id: string) => {
-    if (confirm("Bu koleksiyonu silmek istediğinizden emin misiniz?")) {
+    if (confirm("¿Estás seguro de que quieres eliminar esta colección?")) {
       deleteCollection(id);
       loadData();
       if (selectedCollection?.id === id) {
@@ -92,12 +92,12 @@ export default function VideoCollections({
   };
 
   const collectionColors = [
-    { name: "Mor", value: "purple", bg: "bg-purple-500", text: "text-purple-500" },
-    { name: "Mavi", value: "blue", bg: "bg-blue-500", text: "text-blue-500" },
-    { name: "Yeşil", value: "green", bg: "bg-green-500", text: "text-green-500" },
-    { name: "Kırmızı", value: "red", bg: "bg-red-500", text: "text-red-500" },
-    { name: "Turuncu", value: "orange", bg: "bg-orange-500", text: "text-orange-500" },
-    { name: "Pembe", value: "pink", bg: "bg-pink-500", text: "text-pink-500" },
+    { name: "Morado", value: "purple", bg: "bg-purple-500", text: "text-purple-500" },
+    { name: "Azul", value: "blue", bg: "bg-blue-500", text: "text-blue-500" },
+    { name: "Verde", value: "green", bg: "bg-green-500", text: "text-green-500" },
+    { name: "Rojo", value: "red", bg: "bg-red-500", text: "text-red-500" },
+    { name: "Naranja", value: "orange", bg: "bg-orange-500", text: "text-orange-500" },
+    { name: "Rosa", value: "pink", bg: "bg-pink-500", text: "text-pink-500" },
   ];
 
   const collectionIcons = ["📁", "📂", "🎬", "⭐", "🔥", "💎", "🎯", "🚀"];
@@ -106,21 +106,21 @@ export default function VideoCollections({
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Video Koleksiyonları
+          Colecciones de videos
         </h2>
         <div className="flex gap-2">
           <button
             onClick={() => setShowCreateForm(!showCreateForm)}
             className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
           >
-            {showCreateForm ? "✕ İptal" : "➕ Yeni Koleksiyon"}
+            {showCreateForm ? "✕ Cancelar" : "➕ Nueva colección"}
           </button>
           {onClose && (
             <button
               onClick={onClose}
               className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
-              Kapat
+              Cerrar
             </button>
           )}
         </div>
@@ -130,38 +130,38 @@ export default function VideoCollections({
       {showCreateForm && (
         <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Yeni Koleksiyon Oluştur
+            Crear nueva colección
           </h3>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Koleksiyon Adı *
+                Nombre de la colección *
               </label>
               <input
                 type="text"
                 value={newCollectionName}
                 onChange={(e) => setNewCollectionName(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
-                placeholder="Örn: Ürün Tanıtımları"
+                placeholder="Ej: Presentaciones de productos"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Açıklama (Opsiyonel)
+                Descripción (opcional)
               </label>
               <textarea
                 value={newCollectionDescription}
                 onChange={(e) => setNewCollectionDescription(e.target.value)}
                 rows={2}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
-                placeholder="Koleksiyon hakkında kısa bir açıklama..."
+                placeholder="Breve descripción de la colección..."
               />
             </div>
             <button
               onClick={handleCreate}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
-              Oluştur
+              Crear
             </button>
           </div>
         </div>
@@ -171,12 +171,12 @@ export default function VideoCollections({
         {/* Collections List */}
         <div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Koleksiyonlar ({collections.length})
+            Colecciones ({collections.length})
           </h3>
           {collections.length === 0 ? (
             <div className="p-8 text-center bg-gray-50 dark:bg-gray-700/50 rounded-lg">
               <p className="text-gray-500 dark:text-gray-400">
-                Henüz koleksiyon yok. Yeni bir koleksiyon oluşturun.
+                Aún no hay colecciones. Crea una nueva colección.
               </p>
             </div>
           ) : (
@@ -228,7 +228,7 @@ export default function VideoCollections({
         {selectedCollection && (
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              {selectedCollection.name} - Videolar
+              {selectedCollection.name} - Videos
             </h3>
             <div className="space-y-2 max-h-96 overflow-y-auto">
               {allVideos.map((video) => {
@@ -250,7 +250,7 @@ export default function VideoCollections({
                           {video.text.substring(0, 60)}...
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {new Date(video.createdAt).toLocaleDateString("tr-TR")}
+                          {new Date(video.createdAt).toLocaleDateString("es-ES")}
                         </p>
                       </div>
                     </div>
@@ -261,7 +261,7 @@ export default function VideoCollections({
             {allVideos.length === 0 && (
               <div className="p-8 text-center bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                 <p className="text-gray-500 dark:text-gray-400">
-                  Henüz video yok.
+                  Aún no hay videos.
                 </p>
               </div>
             )}

@@ -51,11 +51,11 @@ export default function ColorCorrectionEditor({
       if (data.success && data.videoUrl) {
         setPreviewUrl(data.videoUrl);
       } else {
-        alert("Renk düzeltmesi uygulanamadı: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo aplicar la corrección de color: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error applying color correction:", error);
-      alert("Renk düzeltmesi uygulanırken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al aplicar la corrección de color: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -75,57 +75,57 @@ export default function ColorCorrectionEditor({
   const colorControls = [
     {
       key: "brightness" as const,
-      name: "Parlaklık",
+      name: "Brillo",
       icon: "☀️",
-      description: "Genel parlaklık seviyesi",
+      description: "Nivel de brillo general",
     },
     {
       key: "contrast" as const,
-      name: "Kontrast",
+      name: "Contraste",
       icon: "🎨",
-      description: "Siyah-beyaz arasındaki fark",
+      description: "Diferencia entre negro y blanco",
     },
     {
       key: "saturation" as const,
-      name: "Doygunluk",
+      name: "Saturación",
       icon: "🌈",
-      description: "Renklerin canlılığı",
+      description: "Viveza de los colores",
     },
     {
       key: "exposure" as const,
-      name: "Pozlama",
+      name: "Exposición",
       icon: "📸",
-      description: "Işık seviyesi",
+      description: "Nivel de luz",
     },
     {
       key: "temperature" as const,
-      name: "Sıcaklık",
+      name: "Temperatura",
       icon: "🌡️",
-      description: "Soğuk (mavi) ↔ Sıcak (turuncu)",
+      description: "Frío (azul) ↔ Cálido (naranja)",
     },
     {
       key: "tint" as const,
-      name: "Ton",
+      name: "Tinte",
       icon: "🎭",
-      description: "Yeşil ↔ Magenta",
+      description: "Verde ↔ Magenta",
     },
     {
       key: "shadows" as const,
-      name: "Gölgeler",
+      name: "Sombras",
       icon: "🌑",
-      description: "Karanlık alanların parlaklığı",
+      description: "Brillo de las áreas oscuras",
     },
     {
       key: "highlights" as const,
-      name: "Vurgular",
+      name: "Luces",
       icon: "✨",
-      description: "Aydınlık alanların parlaklığı",
+      description: "Brillo de las áreas iluminadas",
     },
     {
       key: "gamma" as const,
       name: "Gamma",
       icon: "📊",
-      description: "Orta tonların parlaklığı",
+      description: "Brillo de los tonos medios",
     },
   ];
 
@@ -133,21 +133,21 @@ export default function ColorCorrectionEditor({
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Renk Düzeltme (Color Grading)
+          Corrección de color (Color Grading)
         </h2>
         <div className="flex gap-2">
           <button
             onClick={handleReset}
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
           >
-            🔄 Sıfırla
+            🔄 Restablecer
           </button>
           {onCancel && (
             <button
               onClick={onCancel}
               className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
-              İptal
+              Cancelar
             </button>
           )}
           {onSave && previewUrl && (
@@ -155,7 +155,7 @@ export default function ColorCorrectionEditor({
               onClick={handleSave}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
-              Kaydet
+              Guardar
             </button>
           )}
         </div>
@@ -210,7 +210,7 @@ export default function ColorCorrectionEditor({
           disabled={processing}
           className="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
         >
-          {processing ? `Uygulanıyor... ${Math.round(progress)}%` : "Renk Düzeltmesini Uygula"}
+          {processing ? `Aplicando... ${Math.round(progress)}%` : "Aplicar corrección de color"}
         </button>
       </div>
 
@@ -230,14 +230,14 @@ export default function ColorCorrectionEditor({
       {previewUrl && (
         <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
           <h4 className="text-sm font-semibold text-green-900 dark:text-green-200 mb-2">
-            Önizleme
+            Vista previa
           </h4>
           <video
             src={previewUrl}
             controls
             className="w-full rounded-lg"
           >
-            Tarayıcınız video oynatmayı desteklemiyor.
+            Tu navegador no admite la reproducción de video.
           </video>
         </div>
       )}
@@ -245,7 +245,7 @@ export default function ColorCorrectionEditor({
       {/* Presets */}
       <div className="mt-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          Hazır Ayarlar
+          Preajustes
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {[
@@ -254,31 +254,31 @@ export default function ColorCorrectionEditor({
               options: { saturation: -30, temperature: 20, contrast: 10 },
             },
             {
-              name: "Dramatik",
+              name: "Dramático",
               options: { contrast: 30, saturation: 20, shadows: -20, highlights: 20 },
             },
             {
-              name: "Canlı",
+              name: "Vivo",
               options: { saturation: 40, brightness: 10, contrast: 15 },
             },
             {
-              name: "Siyah-Beyaz",
+              name: "Blanco y negro",
               options: { saturation: -100 },
             },
             {
-              name: "Soğuk",
+              name: "Frío",
               options: { temperature: -30, saturation: -10 },
             },
             {
-              name: "Sıcak",
+              name: "Cálido",
               options: { temperature: 30, saturation: 10 },
             },
             {
-              name: "Yumuşak",
+              name: "Suave",
               options: { contrast: -20, saturation: -10, highlights: -10 },
             },
             {
-              name: "Keskin",
+              name: "Nítido",
               options: { contrast: 40, saturation: 20, brightness: 5 },
             },
           ].map((preset) => (

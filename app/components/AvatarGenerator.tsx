@@ -6,85 +6,85 @@ import { AvatarGenerationOptions } from "@/lib/huggingface";
 import LoadingState from "./LoadingState";
 import { saveAvatar, getAllAvatars } from "@/lib/avatarHistory";
 
-// En iyi ücretsiz AI görsel modelleri (sansürsüz alternatifler dahil)
+// Los mejores modelos de IA gratuitos para imágenes (incluye alternativas sin censura)
 const AVAILABLE_MODELS = [
   {
     id: "black-forest-labs/FLUX.1-dev",
     name: "FLUX.1-dev",
-    description: "En yüksek kalite - 12B parametre, estetik fotoğraflar, daha az kısıtlı",
+    description: "Calidad muy alta - 12B parámetros, fotos estéticas, menos restricciones",
     provider: "Black Forest Labs",
-    quality: "Çok Yüksek",
-    speed: "Orta",
+    quality: "Muy alta",
+    speed: "Media",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "black-forest-labs/FLUX.1-schnell",
     name: "FLUX.1-schnell",
-    description: "Hızlı üretim - Apache 2.0 lisanslı, daha az kısıtlı",
+    description: "Generación rápida - licencia Apache 2.0, menos restricciones",
     provider: "Black Forest Labs",
-    quality: "İyi",
-    speed: "Çok Hızlı",
+    quality: "Buena",
+    speed: "Muy rápida",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "SG161222/Realistic_Vision_V6.0_B1_noVAE",
     name: "Realistic Vision V6.0",
-    description: "Gerçekçi fotoğraflar - NSFW destekli, yüksek kalite",
+    description: "Fotos realistas - compatible con NSFW, alta calidad",
     provider: "SG161222",
-    quality: "Çok Yüksek",
-    speed: "Orta",
+    quality: "Muy alta",
+    speed: "Media",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "SG161222/Realistic_Vision_V5.1_noVAE",
     name: "Realistic Vision V5.1",
-    description: "Gerçekçi fotoğraflar - NSFW destekli, kararlı versiyon",
+    description: "Fotos realistas - compatible con NSFW, versión estable",
     provider: "SG161222",
-    quality: "Yüksek",
-    speed: "Orta",
+    quality: "Alta",
+    speed: "Media",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "runwayml/stable-diffusion-v1-5",
     name: "Stable Diffusion v1.5",
-    description: "Klasik ve hızlı - geniş kullanım alanı, NSFW destekli",
+    description: "Clásico y rápido - amplio uso, compatible con NSFW",
     provider: "Runway",
-    quality: "İyi",
-    speed: "Hızlı",
+    quality: "Buena",
+    speed: "Rápida",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "CompVis/stable-diffusion-v1-4",
     name: "Stable Diffusion v1.4",
-    description: "Orijinal model - NSFW destekli, güvenilir",
+    description: "Modelo original - compatible con NSFW, fiable",
     provider: "CompVis",
-    quality: "İyi",
-    speed: "Hızlı",
+    quality: "Buena",
+    speed: "Rápida",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "stabilityai/stable-diffusion-xl-base-1.0",
     name: "Stable Diffusion XL",
-    description: "Popüler ve güvenilir - yüksek kalite görseller",
+    description: "Popular y fiable - imágenes de alta calidad",
     provider: "Stability AI",
-    quality: "Yüksek",
-    speed: "Orta",
+    quality: "Alta",
+    speed: "Media",
     uncensored: false,
     nsfw: false,
   },
   {
     id: "stabilityai/sdxl-turbo",
     name: "SDXL Turbo",
-    description: "Çok hızlı - tek adımda görsel üretimi",
+    description: "Muy rápido - generación de imágenes en un solo paso",
     provider: "Stability AI",
-    quality: "İyi",
-    speed: "Çok Hızlı",
+    quality: "Buena",
+    speed: "Muy rápida",
     uncensored: false,
     nsfw: false,
   },
@@ -107,7 +107,7 @@ export default function AvatarGenerator() {
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
-      showError("Lütfen bir açıklama girin");
+      showError("Por favor, introduce una descripción");
       return;
     }
 
@@ -133,7 +133,7 @@ export default function AvatarGenerator() {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || "Avatar oluşturulamadı");
+        throw new Error(data.error || "No se pudo generar el avatar");
       }
 
       setAvatarUrl(data.imageUrl);
@@ -141,7 +141,7 @@ export default function AvatarGenerator() {
     } catch (error: any) {
       console.error("Error generating avatar:", error);
       showError(
-        error.message || "Avatar oluşturulurken bir hata oluştu"
+        error.message || "Ocurrió un error al generar el avatar"
       );
     } finally {
       setIsGenerating(false);
@@ -157,12 +157,12 @@ export default function AvatarGenerator() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    success("Avatar indirildi!");
+    success("¡Avatar descargado!");
   };
 
   const handleSave = () => {
     if (!avatarUrl || !prompt.trim()) {
-      showError("Kaydetmek için avatar ve açıklama gerekli");
+      showError("Se necesita el avatar y una descripción para guardar");
       return;
     }
 
@@ -174,17 +174,17 @@ export default function AvatarGenerator() {
       );
 
       if (alreadySaved) {
-        success("Bu avatar zaten kaydedilmiş!");
+        success("¡Este avatar ya está guardado!");
         setIsSaved(true);
         return;
       }
 
       saveAvatar(avatarUrl, prompt.trim(), selectedModel);
       setIsSaved(true);
-      success("Avatar başarıyla kaydedildi! Artık Kıyafet Oluşturucu'da kullanabilirsiniz.");
+      success("¡Avatar guardado correctamente! Ya puedes usarlo en el Generador de Outfits.");
     } catch (error: any) {
       console.error("Error saving avatar:", error);
-      showError(error.message || "Avatar kaydedilirken bir hata oluştu");
+      showError(error.message || "Ocurrió un error al guardar el avatar");
     }
   };
 
@@ -193,10 +193,10 @@ export default function AvatarGenerator() {
       <ToastContainer toasts={toasts} onClose={removeToast} />
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          AI Avatar Oluşturucu
+          Generador de Avatares con IA
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          Hugging Face AI kullanarak özel avatar oluşturun
+          Crea avatares personalizados con Hugging Face IA
         </p>
       </div>
 
@@ -206,7 +206,7 @@ export default function AvatarGenerator() {
           {/* Model Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-              AI Modeli Seçin
+              Selecciona el modelo de IA
             </label>
             <div className="space-y-2 max-h-96 overflow-y-auto">
               {AVAILABLE_MODELS.map((model) => (
@@ -238,12 +238,12 @@ export default function AvatarGenerator() {
                       </span>
                       {model.uncensored && (
                         <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-xs rounded font-medium">
-                          ✓ Daha Az Kısıtlı
+                          ✓ Menos restricciones
                         </span>
                       )}
                       {model.nsfw && (
                         <span className="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 text-xs rounded font-medium">
-                          🔞 NSFW Destekli
+                          🔞 Compatible con NSFW
                         </span>
                       )}
                       <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
@@ -254,8 +254,8 @@ export default function AvatarGenerator() {
                       {model.description}
                     </p>
                     <div className="flex gap-4 mt-2 text-xs text-gray-500 dark:text-gray-500">
-                      <span>Kalite: {model.quality}</span>
-                      <span>Hız: {model.speed}</span>
+                      <span>Calidad: {model.quality}</span>
+                      <span>Velocidad: {model.speed}</span>
                     </div>
                   </div>
                 </label>
@@ -263,8 +263,8 @@ export default function AvatarGenerator() {
             </div>
             <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
               <p className="text-xs text-blue-800 dark:text-blue-200">
-                <strong>💡 İpucu:</strong> 🔞 NSFW Destekli modeller (Realistic Vision, FLUX, Stable Diffusion v1.4/v1.5) çıplaklık içeren görseller oluşturmak için uygundur. 
-                Hugging Face Inference API üzerinden ücretsiz kullanılabilir (API key ile daha yüksek limitler).
+                <strong>💡 Consejo:</strong> Los modelos 🔞 compatibles con NSFW (Realistic Vision, FLUX, Stable Diffusion v1.4/v1.5) son adecuados para generar imágenes con desnudez.
+                Se pueden usar de forma gratuita a través de Hugging Face Inference API (con API key obtienes límites más altos).
               </p>
             </div>
           </div>
@@ -274,7 +274,7 @@ export default function AvatarGenerator() {
               htmlFor="avatar-prompt"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
-              Avatar Açıklaması
+              Descripción del avatar
             </label>
             <textarea
               id="avatar-prompt"
@@ -284,17 +284,17 @@ export default function AvatarGenerator() {
               rows={4}
               maxLength={500}
               className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed resize-none"
-              placeholder="Örn: Genç bir kadın, kahverengi saçlı, gülümseyen, profesyonel görünüm..."
+              placeholder="Ej: Una mujer joven, cabello castaño, sonriendo, aspecto profesional..."
             />
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              {prompt.length} / 500 karakter
+              {prompt.length} / 500 caracteres
             </p>
           </div>
 
           {/* Style Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Stil
+              Estilo
             </label>
             <select
               value={options.style}
@@ -307,18 +307,18 @@ export default function AvatarGenerator() {
               disabled={isGenerating}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <option value="realistic">Gerçekçi</option>
-              <option value="cartoon">Karikatür</option>
+              <option value="realistic">Realista</option>
+              <option value="cartoon">Caricatura</option>
               <option value="anime">Anime</option>
-              <option value="professional">Profesyonel</option>
-              <option value="artistic">Sanatsal</option>
+              <option value="professional">Profesional</option>
+              <option value="artistic">Artístico</option>
             </select>
           </div>
 
           {/* Gender Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Cinsiyet (Opsiyonel)
+              Género (opcional)
             </label>
             <select
               value={options.gender || ""}
@@ -333,17 +333,17 @@ export default function AvatarGenerator() {
               disabled={isGenerating}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <option value="">Belirtilmemiş</option>
-              <option value="male">Erkek</option>
-              <option value="female">Kadın</option>
-              <option value="neutral">Nötr</option>
+              <option value="">Sin especificar</option>
+              <option value="male">Masculino</option>
+              <option value="female">Femenino</option>
+              <option value="neutral">Neutro</option>
             </select>
           </div>
 
           {/* Age Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Yaş (Opsiyonel)
+              Edad (opcional)
             </label>
             <select
               value={options.age || ""}
@@ -358,10 +358,10 @@ export default function AvatarGenerator() {
               disabled={isGenerating}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <option value="">Belirtilmemiş</option>
-              <option value="young">Genç</option>
-              <option value="adult">Yetişkin</option>
-              <option value="elderly">Yaşlı</option>
+              <option value="">Sin especificar</option>
+              <option value="young">Joven</option>
+              <option value="adult">Adulto/a</option>
+              <option value="elderly">Mayor</option>
             </select>
           </div>
 
@@ -371,7 +371,7 @@ export default function AvatarGenerator() {
               htmlFor="additional-prompt"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
-              Ek Detaylar (Opsiyonel)
+              Detalles adicionales (opcional)
             </label>
             <input
               id="additional-prompt"
@@ -383,7 +383,7 @@ export default function AvatarGenerator() {
               disabled={isGenerating}
               maxLength={200}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-              placeholder="Örn: mavi gözler, kısa saç, güneş gözlüğü..."
+              placeholder="Ej: ojos azules, cabello corto, gafas de sol..."
             />
           </div>
 
@@ -392,7 +392,7 @@ export default function AvatarGenerator() {
             disabled={isGenerating || !prompt.trim()}
             className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            {isGenerating ? "Oluşturuluyor..." : "Avatar Oluştur"}
+            {isGenerating ? "Generando..." : "Generar avatar"}
           </button>
         </div>
 
@@ -403,7 +403,7 @@ export default function AvatarGenerator() {
               <LoadingState 
                 status={{
                   status: "generating-video",
-                  message: "Avatar oluşturuluyor...",
+                  message: "Generando avatar...",
                   progress: undefined,
                 }}
               />
@@ -421,7 +421,7 @@ export default function AvatarGenerator() {
                 {isSaved && (
                   <div className="absolute top-6 right-6 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                     <span>✓</span>
-                    <span>Kaydedildi</span>
+                    <span>Guardado</span>
                   </div>
                 )}
               </div>
@@ -435,19 +435,19 @@ export default function AvatarGenerator() {
                       : "bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500"
                   }`}
                 >
-                  {isSaved ? "✓ Kaydedildi" : "💾 Kaydet"}
+                  {isSaved ? "✓ Guardado" : "💾 Guardar"}
                 </button>
                 <button
                   onClick={handleDownload}
                   className="flex-1 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  📥 İndir
+                  📥 Descargar
                 </button>
               </div>
               {isSaved && (
                 <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
                   <p className="text-sm text-green-800 dark:text-green-200">
-                    <strong>✓ Başarılı!</strong> Avatar kaydedildi. Artık "Kıyafet Oluşturucu" bölümünde bu karakteri seçip kıyafet giydirebilirsiniz.
+                    <strong>✓ ¡Guardado!</strong> Avatar guardado. Ahora puedes seleccionar este personaje en la sección "Generador de Outfits" y vestirlo.
                   </p>
                 </div>
               )}
@@ -470,9 +470,9 @@ export default function AvatarGenerator() {
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                <p className="text-lg font-medium">Avatar burada görünecek</p>
+                <p className="text-lg font-medium">El avatar aparecerá aquí</p>
                 <p className="text-sm mt-2">
-                  Yukarıdaki formu doldurup "Avatar Oluştur" butonuna tıklayın
+                  Rellena el formulario de arriba y pulsa "Generar avatar"
                 </p>
               </div>
             </div>
@@ -482,14 +482,13 @@ export default function AvatarGenerator() {
 
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>💡 İpucu:</strong> Daha iyi sonuçlar için açıklamayı detaylı
-          yazın. Örneğin: "Genç bir kadın, kahverengi saçlı, mavi gözler,
-          gülümseyen, profesyonel iş kıyafeti, stüdyo ışığı"
+          <strong>💡 Consejo:</strong> Para mejores resultados, escribe una descripción detallada.
+          Por ejemplo: "Una mujer joven, cabello castaño, ojos azules,
+          sonriendo, ropa de trabajo profesional, iluminación de estudio"
         </p>
         <p className="text-xs text-blue-600 dark:text-blue-300 mt-2">
-          <strong>Not:</strong> Hugging Face API key'i .env dosyasına
-          HUGGINGFACE_API_KEY olarak eklenebilir (opsiyonel, ücretsiz tier
-          kullanılabilir)
+          <strong>Nota:</strong> La API key de Hugging Face se puede añadir al archivo .env
+          como HUGGINGFACE_API_KEY (opcional, el nivel gratuito está disponible)
         </p>
       </div>
     </div>

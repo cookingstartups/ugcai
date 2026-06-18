@@ -52,7 +52,7 @@ export default function TTSProviderSelector({
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Seslendirme Servisi
+        Servicio de voz
       </label>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         {TTS_PROVIDERS.map((providerConfig) => {
@@ -80,7 +80,7 @@ export default function TTSProviderSelector({
                 <span className="font-semibold">{providerConfig.name}</span>
                 {providerConfig.isFree && (
                   <span className="text-xs bg-green-500 text-white px-1.5 py-0.5 rounded">
-                    ÜCRETSİZ
+                    GRATIS
                   </span>
                 )}
               </div>
@@ -94,11 +94,11 @@ export default function TTSProviderSelector({
               )}
               {providerConfig.requiresApiKey && (
                 <p className={`text-xs mt-1 ${isLoading ? "text-gray-400" : isAvailable ? "text-green-600 dark:text-green-400" : "text-red-500 dark:text-red-400"}`}>
-                  {isLoading 
-                    ? "⏳ Kontrol ediliyor..." 
-                    : isAvailable 
-                      ? "✅ API key tanımlı" 
-                      : "❌ API key tanımlı değil"}
+                  {isLoading
+                    ? "⏳ Verificando..."
+                    : isAvailable
+                      ? "✅ API key configurada"
+                      : "❌ API key no configurada"}
                 </p>
               )}
             </button>
@@ -108,13 +108,13 @@ export default function TTSProviderSelector({
       {selectedProvider && providerAvailability[selectedProvider] === false && TTS_PROVIDERS.find(p => p.provider === selectedProvider)?.requiresApiKey && (
         <div className="mt-2 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">
-            ⚠️ <strong>{TTS_PROVIDERS.find(p => p.provider === selectedProvider)?.name}</strong> için API key tanımlı değil. 
-            Lütfen <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">.env</code> dosyasına <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">{TTS_PROVIDERS.find(p => p.provider === selectedProvider)?.apiKeyEnv}</code> ekleyin.
+            ⚠️ No hay API key configurada para <strong>{TTS_PROVIDERS.find(p => p.provider === selectedProvider)?.name}</strong>.
+            Añade <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">{TTS_PROVIDERS.find(p => p.provider === selectedProvider)?.apiKeyEnv}</code> al archivo <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">.env</code>.
           </p>
         </div>
       )}
       <p className="text-xs text-gray-500 dark:text-gray-400">
-        💡 Ücretsiz seçenekler için Edge TTS, Google Cloud TTS veya Azure Speech&apos;i seçin
+        💡 Para opciones gratuitas, elige Edge TTS, Google Cloud TTS o Azure Speech
       </p>
     </div>
   );

@@ -108,7 +108,7 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
   };
 
   const handleClearAll = () => {
-    if (confirm("Tüm geçmişi silmek istediğinizden emin misiniz?")) {
+    if (confirm("¿Estás seguro de que quieres eliminar todo el historial?")) {
       clearVideoHistory();
       loadHistory();
     }
@@ -121,13 +121,13 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
     if (days === 0) {
-      return "Bugün";
+      return "Hoy";
     } else if (days === 1) {
-      return "Dün";
+      return "Ayer";
     } else if (days < 7) {
-      return `${days} gün önce`;
+      return `Hace ${days} días`;
     } else {
-      return date.toLocaleDateString("tr-TR", {
+      return date.toLocaleDateString("es-ES", {
         day: "numeric",
         month: "short",
         year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
@@ -140,7 +140,7 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
       <div className="mb-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Video Geçmişi
+            Historial de videos
           </h2>
           <div className="flex gap-2">
             <button
@@ -151,14 +151,14 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
                   : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
               }`}
             >
-              {filter === "favorites" ? "⭐ Favoriler" : "📋 Tümü"}
+              {filter === "favorites" ? "⭐ Favoritos" : "📋 Todos"}
             </button>
             {allVideos.length > 0 && (
               <button
                 onClick={handleClearAll}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium transition-colors"
               >
-                Tümünü Sil
+                Eliminar todo
               </button>
             )}
             {onClose && (
@@ -166,7 +166,7 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
                 onClick={onClose}
                 className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 text-sm font-medium transition-colors"
               >
-                Kapat
+                Cerrar
               </button>
             )}
           </div>
@@ -177,13 +177,13 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
           {/* Search */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              🔍 Arama
+              🔍 Buscar
             </label>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Video metni veya ses adı ile ara..."
+              placeholder="Buscar por texto del video o nombre de voz..."
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
             />
           </div>
@@ -193,40 +193,40 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
             {/* Date Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                📅 Tarih Filtresi
+                📅 Filtrar por fecha
               </label>
               <select
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value as any)}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
               >
-                <option value="all">Tümü</option>
-                <option value="today">Bugün</option>
-                <option value="week">Son 7 Gün</option>
-                <option value="month">Son 30 Gün</option>
+                <option value="all">Todos</option>
+                <option value="today">Hoy</option>
+                <option value="week">Últimos 7 días</option>
+                <option value="month">Últimos 30 días</option>
               </select>
             </div>
 
             {/* Sort By */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                🔄 Sıralama
+                🔄 Ordenar
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
               >
-                <option value="date">Tarihe Göre (Yeni → Eski)</option>
-                <option value="name">İsme Göre (A → Z)</option>
-                <option value="duration">Süreye Göre (Uzun → Kısa)</option>
+                <option value="date">Por fecha (más reciente primero)</option>
+                <option value="name">Por nombre (A → Z)</option>
+                <option value="duration">Por duración (mayor a menor)</option>
               </select>
             </div>
           </div>
 
           {/* Results Count */}
           <div className="text-sm text-gray-600 dark:text-gray-400">
-            {history.length} video bulundu {searchQuery && `(arama: "${searchQuery}")`}
+            {history.length} video encontrado{history.length !== 1 ? "s" : ""} {searchQuery && `(búsqueda: "${searchQuery}")`}
           </div>
         </div>
       </div>
@@ -235,8 +235,8 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
         <div className="text-center py-12">
           <p className="text-gray-500 dark:text-gray-400">
             {filter === "favorites"
-              ? "Henüz favori video yok"
-              : "Henüz video geçmişi yok"}
+              ? "Todavía no hay videos favoritos"
+              : "Todavía no hay historial de videos"}
           </p>
         </div>
       ) : (
@@ -274,7 +274,7 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
                         ? "bg-yellow-500 text-white"
                         : "bg-black/50 text-white hover:bg-black/70"
                     }`}
-                    title={video.isFavorite ? "Favorilerden çıkar" : "Favorilere ekle"}
+                    title={video.isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
                   >
                     ⭐
                   </button>
@@ -300,7 +300,7 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
                       onClick={() => onSelectVideo(video)}
                       className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium transition-colors"
                     >
-                      Görüntüle
+                      Ver
                     </button>
                   )}
                   <button

@@ -29,19 +29,19 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
 
   const handleAddText = () => {
     if (!currentText.trim()) {
-      showError("Lütfen bir metin girin");
+      showError("Por favor, introduce un texto");
       return;
     }
 
     const validation = validateText(currentText);
     if (!validation.valid) {
-      showError(validation.error || "Geçersiz metin");
+      showError(validation.error || "Texto no válido");
       return;
     }
 
     setTexts([...texts, currentText.trim()]);
     setCurrentText("");
-    success("Metin eklendi");
+    success("Texto añadido");
   };
 
   const handleRemoveText = (index: number) => {
@@ -65,9 +65,9 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
               typeof item === "string" ? item : item.text || item.content || ""
             ).filter((text) => text.trim().length > 0);
             setTexts([...texts, ...extractedTexts]);
-            success(`${extractedTexts.length} metin yüklendi`);
+            success(`${extractedTexts.length} textos cargados`);
           } else {
-            throw new Error("JSON formatı geçersiz. Array bekleniyor.");
+            throw new Error("Formato JSON no válido. Se espera un array.");
           }
         } else if (file.name.endsWith(".csv")) {
           // Parse CSV
@@ -76,7 +76,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
             .map((line) => line.trim())
             .filter((line) => line.length > 0 && !line.startsWith("#"));
           setTexts([...texts, ...extractedTexts]);
-          success(`${extractedTexts.length} metin yüklendi`);
+          success(`${extractedTexts.length} textos cargados`);
         } else if (file.name.endsWith(".txt")) {
           // Parse TXT (one text per line)
           const lines = content.split("\n");
@@ -84,32 +84,32 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
             .map((line) => line.trim())
             .filter((line) => line.length > 0);
           setTexts([...texts, ...extractedTexts]);
-          success(`${extractedTexts.length} metin yüklendi`);
+          success(`${extractedTexts.length} textos cargados`);
         } else {
-          showError("Desteklenmeyen dosya formatı. JSON, CSV veya TXT kullanın.");
+          showError("Formato de archivo no compatible. Usa JSON, CSV o TXT.");
         }
       } catch (err: any) {
-        showError(err.message || "Dosya okunamadı");
+        showError(err.message || "No se pudo leer el archivo");
       }
     };
 
     if (file.name.endsWith(".json") || file.name.endsWith(".csv") || file.name.endsWith(".txt")) {
       reader.readAsText(file);
     } else {
-      showError("Desteklenmeyen dosya formatı");
+      showError("Formato de archivo no compatible");
     }
   };
 
   const handleStartBatch = async () => {
     if (texts.length === 0) {
-      showError("En az bir metin ekleyin");
+      showError("Añade al menos un texto");
       return;
     }
 
     setProcessing(true);
     const job = createBatchJob(texts);
     setCurrentJob(job);
-    info(`Toplu işlem başlatıldı: ${texts.length} video oluşturulacak`);
+    info(`Procesamiento en lote iniciado: se generarán ${texts.length} videos`);
 
     // Process each text sequentially
     for (let i = 0; i < job.items.length; i++) {
@@ -136,7 +136,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
 
         const audioData = await audioResponse.json();
         if (!audioData.success) {
-          throw new Error(audioData.error || "Ses oluşturulamadı");
+          throw new Error(audioData.error || "No se pudo generar el audio");
         }
 
         updateBatchItem(job.id, item.id, {
@@ -163,7 +163,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
 
         const videoData = await videoResponse.json();
         if (!videoData.success) {
-          throw new Error(videoData.error || "Video oluşturulamadı");
+          throw new Error(videoData.error || "No se pudo generar el video");
         }
 
         // Start polling for this video
@@ -180,7 +180,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
       } catch (err: any) {
         updateBatchItem(job.id, item.id, {
           status: "error",
-          error: err.message || "Bir hata oluştu",
+          error: err.message || "Ocurrió un error",
         });
         logger.error(`Batch item ${item.id} failed:`, err);
       }
@@ -192,7 +192,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
     }
 
     setProcessing(false);
-    success("Toplu işlem tamamlandı!");
+    success("¡Procesamiento en lote completado!");
   };
 
   const pollVideoStatus = async (
@@ -210,7 +210,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
         const data = await response.json();
 
         if (!data.success) {
-          throw new Error(data.error || "Video durumu kontrol edilemedi");
+          throw new Error(data.error || "No se pudo verificar el estado del video");
         }
 
         updateBatchItem(jobId, itemId, {
@@ -226,7 +226,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
           });
           return;
         } else if (data.status === "failed" || data.status === "canceled") {
-          throw new Error(data.error || "Video oluşturulamadı");
+          throw new Error(data.error || "No se pudo generar el video");
         }
 
         attempts++;
@@ -234,13 +234,13 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
       } catch (err: any) {
         updateBatchItem(jobId, itemId, {
           status: "error",
-          error: err.message || "Video durumu kontrol edilemedi",
+          error: err.message || "No se pudo verificar el estado del video",
         });
         throw err;
       }
     }
 
-    throw new Error("Video oluşturma zaman aşımına uğradı");
+    throw new Error("Se agotó el tiempo de generación del video");
   };
 
   const handleDownloadAll = () => {
@@ -259,21 +259,21 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
       }, index * 500); // Stagger downloads
     });
 
-    success(`${completedItems.length} video indiriliyor...`);
+    success(`Descargando ${completedItems.length} videos...`);
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Toplu Video Oluşturma
+          Generación de videos en lote
         </h2>
         {onClose && (
           <button
             onClick={onClose}
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
           >
-            ✕ Kapat
+            ✕ Cerrar
           </button>
         )}
       </div>
@@ -295,7 +295,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
       {/* Text Input */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Metin Ekle
+          Añadir texto
         </label>
         <div className="flex gap-2">
           <textarea
@@ -304,14 +304,14 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
             disabled={processing}
             rows={3}
             className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50"
-            placeholder="Video için metin girin..."
+            placeholder="Introduce el texto para el video..."
           />
           <button
             onClick={handleAddText}
             disabled={processing || !currentText.trim()}
             className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            Ekle
+            Añadir
           </button>
         </div>
       </div>
@@ -319,7 +319,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
       {/* File Upload */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Dosyadan Yükle (JSON, CSV, TXT)
+          Cargar desde archivo (JSON, CSV, TXT)
         </label>
         <input
           ref={fileInputRef}
@@ -330,9 +330,9 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
           className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 disabled:opacity-50"
         />
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-          JSON: Array of strings veya objects with &quot;text&quot; field<br />
-          CSV: Her satır bir metin<br />
-          TXT: Her satır bir metin
+          JSON: Array de strings u objetos con campo &quot;text&quot;<br />
+          CSV: Un texto por línea<br />
+          TXT: Un texto por línea
         </p>
       </div>
 
@@ -341,14 +341,14 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Metinler ({texts.length})
+              Textos ({texts.length})
             </label>
             <button
               onClick={() => setTexts([])}
               disabled={processing}
               className="text-sm text-red-600 hover:text-red-700 disabled:opacity-50"
             >
-              Tümünü Temizle
+              Limpiar todos
             </button>
           </div>
           <div className="max-h-64 overflow-y-auto space-y-2 border border-gray-200 dark:border-gray-700 rounded-lg p-3">
@@ -379,7 +379,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
         disabled={processing || texts.length === 0}
         className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       >
-        {processing ? `İşleniyor... (${currentJob?.completedCount || 0}/${currentJob?.totalCount || 0})` : `${texts.length} Video Oluştur`}
+        {processing ? `Procesando... (${currentJob?.completedCount || 0}/${currentJob?.totalCount || 0})` : `Generar ${texts.length} videos`}
       </button>
 
       {/* Current Job Progress */}
@@ -388,10 +388,10 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
           <div>
             <div className="flex justify-between items-center mb-2">
               <h3 className="font-medium text-gray-900 dark:text-white">
-                İlerleme
+                Progreso
               </h3>
               <span className="text-sm text-gray-600 dark:text-gray-400">
-                {currentJob.completedCount} / {currentJob.totalCount} tamamlandı
+                {currentJob.completedCount} / {currentJob.totalCount} completados
               </span>
             </div>
             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
@@ -415,7 +415,7 @@ export default function BatchProcessor({ onClose }: BatchProcessorProps) {
               onClick={handleDownloadAll}
               className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
-              📥 Tüm Videoları İndir ({currentJob.completedCount})
+              📥 Descargar todos los videos ({currentJob.completedCount})
             </button>
           )}
         </div>
@@ -469,7 +469,7 @@ function BatchItemProgress({ item, jobId }: { item: BatchVideoItem; jobId: strin
           download
           className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1 inline-block"
         >
-          📥 İndir
+          📥 Descargar
         </a>
       )}
     </div>

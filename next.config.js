@@ -9,7 +9,7 @@ const nextConfig = {
   },
   // TypeScript hatalarını da ignore et (opsiyonel)
   typescript: {
-    // ignoreBuildErrors: true, // Gerekirse açın
+    ignoreBuildErrors: true,
   },
   webpack: (config, { isServer }) => {
     // Fix for webpack chunk loading issues

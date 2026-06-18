@@ -36,7 +36,7 @@ export default function VideoEditor({
 
   const handleTrim = async () => {
     if (!edits.trim || edits.trim.start < 0) {
-      alert("Geçerli bir başlangıç zamanı girin");
+      alert("Introduce un tiempo de inicio válido");
       return;
     }
 
@@ -61,11 +61,11 @@ export default function VideoEditor({
       if (data.success && data.videoUrl) {
         setPreviewUrl(data.videoUrl);
       } else {
-        alert("Video kırpılamadı: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo recortar el video: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error trimming video:", error);
-      alert("Video kırpılırken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al recortar el video: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -73,7 +73,7 @@ export default function VideoEditor({
 
   const handleCrop = async () => {
     if (!edits.crop || edits.crop.width <= 0 || edits.crop.height <= 0) {
-      alert("Geçerli bir kırpma alanı belirleyin");
+      alert("Define un área de recorte válida");
       return;
     }
 
@@ -100,11 +100,11 @@ export default function VideoEditor({
       if (data.success && data.videoUrl) {
         setPreviewUrl(data.videoUrl);
       } else {
-        alert("Video kırpılamadı: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo recortar el video: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error cropping video:", error);
-      alert("Video kırpılırken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al recortar el video: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -112,7 +112,7 @@ export default function VideoEditor({
 
   const handleRotate = async () => {
     if (!edits.rotate) {
-      alert("Döndürme açısı seçin");
+      alert("Selecciona un ángulo de rotación");
       return;
     }
 
@@ -136,11 +136,11 @@ export default function VideoEditor({
       if (data.success && data.videoUrl) {
         setPreviewUrl(data.videoUrl);
       } else {
-        alert("Video döndürülemedi: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo rotar el video: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error rotating video:", error);
-      alert("Video döndürülürken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al rotar el video: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -162,7 +162,7 @@ export default function VideoEditor({
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Video Düzenleyici
+          Editor de video
         </h2>
         <div className="flex gap-2">
           {onCancel && (
@@ -170,7 +170,7 @@ export default function VideoEditor({
               onClick={onCancel}
               className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
-              İptal
+              Cancelar
             </button>
           )}
           {onSave && previewUrl && (
@@ -178,7 +178,7 @@ export default function VideoEditor({
               onClick={handleSave}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
-              Kaydet
+              Guardar
             </button>
           )}
         </div>
@@ -193,11 +193,11 @@ export default function VideoEditor({
           className="w-full rounded-lg"
           onLoadedMetadata={handleVideoLoaded}
         >
-          Tarayıcınız video oynatmayı desteklemiyor.
+          Tu navegador no soporta reproducción de video.
         </video>
         {videoDuration > 0 && (
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            Süre: {formatTime(videoDuration)}
+            Duración: {formatTime(videoDuration)}
           </p>
         )}
       </div>
@@ -206,13 +206,13 @@ export default function VideoEditor({
       <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            ✂️ Kırp (Trim)
+            ✂️ Recortar (Trim)
           </h3>
           <button
             onClick={() => setShowTrim(!showTrim)}
             className="px-3 py-1 bg-purple-600 text-white rounded text-sm hover:bg-purple-700"
           >
-            {showTrim ? "Gizle" : "Göster"}
+            {showTrim ? "Ocultar" : "Mostrar"}
           </button>
         </div>
         {showTrim && (
@@ -220,7 +220,7 @@ export default function VideoEditor({
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Başlangıç (saniye)
+                  Inicio (segundos)
                 </label>
                 <input
                   type="number"
@@ -242,7 +242,7 @@ export default function VideoEditor({
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Bitiş (saniye) - Opsiyonel
+                  Fin (segundos) - Opcional
                 </label>
                 <input
                   type="number"
@@ -260,7 +260,7 @@ export default function VideoEditor({
                     })
                   }
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
-                  placeholder="Boş bırak = sona kadar"
+                  placeholder="Dejar vacío = hasta el final"
                 />
               </div>
             </div>
@@ -269,7 +269,7 @@ export default function VideoEditor({
               disabled={processing}
               className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
             >
-              {processing ? `İşleniyor... ${Math.round(progress)}%` : "Kırp"}
+              {processing ? `Procesando... ${Math.round(progress)}%` : "Recortar"}
             </button>
           </div>
         )}
@@ -279,13 +279,13 @@ export default function VideoEditor({
       <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            🖼️ Kırp (Crop)
+            🖼️ Recortar (Crop)
           </h3>
           <button
             onClick={() => setShowCrop(!showCrop)}
             className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
           >
-            {showCrop ? "Gizle" : "Göster"}
+            {showCrop ? "Ocultar" : "Mostrar"}
           </button>
         </div>
         {showCrop && (
@@ -293,7 +293,7 @@ export default function VideoEditor({
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  X Pozisyonu
+                  Posición X
                 </label>
                 <input
                   type="number"
@@ -316,7 +316,7 @@ export default function VideoEditor({
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Y Pozisyonu
+                  Posición Y
                 </label>
                 <input
                   type="number"
@@ -339,7 +339,7 @@ export default function VideoEditor({
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Genişlik
+                  Ancho
                 </label>
                 <input
                   type="number"
@@ -362,7 +362,7 @@ export default function VideoEditor({
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Yükseklik
+                  Alto
                 </label>
                 <input
                   type="number"
@@ -389,7 +389,7 @@ export default function VideoEditor({
               disabled={processing}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
             >
-              {processing ? `İşleniyor... ${Math.round(progress)}%` : "Kırp"}
+              {processing ? `Procesando... ${Math.round(progress)}%` : "Recortar"}
             </button>
           </div>
         )}
@@ -398,7 +398,7 @@ export default function VideoEditor({
       {/* Rotate */}
       <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          🔄 Döndür
+          🔄 Rotar
         </h3>
         <div className="flex gap-2 mb-4">
           {[90, 180, 270].map((angle) => (
@@ -420,7 +420,7 @@ export default function VideoEditor({
           disabled={processing || !edits.rotate}
           className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
         >
-          {processing ? `İşleniyor... ${Math.round(progress)}%` : "Döndür"}
+          {processing ? `Procesando... ${Math.round(progress)}%` : "Rotar"}
         </button>
       </div>
 

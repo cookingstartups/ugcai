@@ -12,19 +12,19 @@ const models: { value: AIModel; name: string; description: string; icon: string 
   {
     value: "gemini",
     name: "Google Gemini",
-    description: "Google'ın gelişmiş AI modeli",
+    description: "El modelo avanzado de IA de Google",
     icon: "🤖",
   },
   {
     value: "grok",
     name: "Grok (xAI)",
-    description: "xAI'nin güçlü AI modeli",
+    description: "El potente modelo de IA de xAI",
     icon: "🚀",
   },
   {
     value: "deepseek",
     name: "DeepSeek",
-    description: "Yüksek performanslı AI modeli",
+    description: "Modelo de IA de alto rendimiento",
     icon: "⚡",
   },
 ];
@@ -37,7 +37,7 @@ export default function AIModelSelector({
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        AI Modeli
+        Modelo de IA
       </label>
       <div className="grid grid-cols-3 gap-2">
         {models.map((model) => (
