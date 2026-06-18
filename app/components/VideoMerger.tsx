@@ -31,7 +31,7 @@ export default function VideoMerger({ onClose }: VideoMergerProps) {
 
   const handleMerge = async () => {
     if (selectedVideos.length < 2) {
-      alert("En az 2 video seçmelisiniz");
+      alert("Debes seleccionar al menos 2 videos");
       return;
     }
 
@@ -61,11 +61,11 @@ export default function VideoMerger({ onClose }: VideoMergerProps) {
       if (data.success && data.videoUrl) {
         setMergedVideoUrl(data.videoUrl);
       } else {
-        alert("Videolar birleştirilemedi: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudieron unir los videos: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error merging videos:", error);
-      alert("Videolar birleştirilirken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al unir los videos: " + error.message);
     } finally {
       setProcessing(false);
     }
@@ -86,14 +86,14 @@ export default function VideoMerger({ onClose }: VideoMergerProps) {
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Video Birleştirici
+          Combinar videos
         </h2>
         {onClose && (
           <button
             onClick={onClose}
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
           >
-            Kapat
+            Cerrar
           </button>
         )}
       </div>
@@ -101,12 +101,12 @@ export default function VideoMerger({ onClose }: VideoMergerProps) {
       {/* Video Selection */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          Birleştirilecek Videolar ({selectedVideos.length} seçili)
+          Videos a combinar ({selectedVideos.length} seleccionados)
         </h3>
         {availableVideos.length === 0 ? (
           <div className="p-8 text-center bg-gray-50 dark:bg-gray-700/50 rounded-lg">
             <p className="text-gray-500 dark:text-gray-400">
-              Henüz video geçmişi yok. Önce bir video oluşturun.
+              Todavía no hay historial de videos. Genera un video primero.
             </p>
           </div>
         ) : (
@@ -155,14 +155,14 @@ export default function VideoMerger({ onClose }: VideoMergerProps) {
           disabled={processing || selectedVideos.length < 2}
           className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
         >
-          {processing ? `Birleştiriliyor... ${Math.round(progress)}%` : "Videoları Birleştir"}
+          {processing ? `Combinando... ${Math.round(progress)}%` : "Combinar videos"}
         </button>
         {mergedVideoUrl && (
           <button
             onClick={handleDownload}
             className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
           >
-            📥 Birleştirilmiş Videoyu İndir
+            📥 Descargar video combinado
           </button>
         )}
       </div>
@@ -183,14 +183,14 @@ export default function VideoMerger({ onClose }: VideoMergerProps) {
       {mergedVideoUrl && (
         <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
           <h4 className="text-sm font-semibold text-green-900 dark:text-green-200 mb-2">
-            Birleştirilmiş Video
+            Video combinado
           </h4>
           <video
             src={mergedVideoUrl}
             controls
             className="w-full rounded-lg"
           >
-            Tarayıcınız video oynatmayı desteklemiyor.
+            Tu navegador no soporta reproducción de video.
           </video>
         </div>
       )}
@@ -198,8 +198,8 @@ export default function VideoMerger({ onClose }: VideoMergerProps) {
       {/* Info */}
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>💡 İpucu:</strong> Videolar seçtiğiniz sırayla birleştirilir. 
-          Sırayı değiştirmek için videoları tekrar seçip seçimi kaldırın ve istediğiniz sırayla seçin.
+          <strong>💡 Consejo:</strong> Los videos se combinan en el orden en que los seleccionas.
+          Para cambiar el orden, deselecciona los videos y vuelve a seleccionarlos en el orden deseado.
         </p>
       </div>
     </div>

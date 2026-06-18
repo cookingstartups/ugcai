@@ -99,11 +99,11 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
       if (data.success && data.thumbnailUrl) {
         setThumbnailUrl(data.thumbnailUrl);
       } else {
-        alert("Thumbnail oluşturulamadı: " + (data.error || "Bilinmeyen hata"));
+        alert("No se pudo generar la miniatura: " + (data.error || "Error desconocido"));
       }
     } catch (error: any) {
       console.error("Error generating thumbnail:", error);
-      alert("Thumbnail oluşturulurken bir hata oluştu: " + error.message);
+      alert("Ocurrió un error al generar la miniatura: " + error.message);
     } finally {
       setGeneratingThumbnail(false);
     }
@@ -144,106 +144,106 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-          Oluşturulan Video
+          Video generado
         </h2>
         <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => setShowEditor(true)}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
           >
-            ✏️ Düzenle
+            ✏️ Editar
           </button>
           <button
             onClick={() => setShowWatermark(!showWatermark)}
             className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
           >
-            {showWatermark ? "✕ Watermark'ı Gizle" : "💧 Watermark"}
+            {showWatermark ? "✕ Ocultar watermark" : "💧 Watermark"}
           </button>
           <button
             onClick={() => setShowSubtitles(!showSubtitles)}
             className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-colors"
           >
-            {showSubtitles ? "✕ Altyazıyı Gizle" : "📝 Altyazı"}
+            {showSubtitles ? "✕ Ocultar subtítulos" : "📝 Subtítulos"}
           </button>
           <button
             onClick={() => setShowBackgroundMusic(!showBackgroundMusic)}
             className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition-colors"
           >
-            {showBackgroundMusic ? "✕ Müziği Gizle" : "🎵 Müzik"}
+            {showBackgroundMusic ? "✕ Ocultar música" : "🎵 Música"}
           </button>
           <button
             onClick={() => setShowEffects(!showEffects)}
             className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-colors"
           >
-            {showEffects ? "✕ Efektleri Gizle" : "✨ Efektler"}
+            {showEffects ? "✕ Ocultar efectos" : "✨ Efectos"}
           </button>
           <button
             onClick={() => setShowEditor(!showEditor)}
             className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-colors"
           >
-            {showEditor ? "✕ Düzenleyiciyi Gizle" : "✂️ Düzenle"}
+            {showEditor ? "✕ Ocultar editor" : "✂️ Editar"}
           </button>
           <button
             onClick={() => setShowFormatConverter(!showFormatConverter)}
             className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
           >
-            {showFormatConverter ? "✕ Dönüştürücüyü Gizle" : "🔄 Format"}
+            {showFormatConverter ? "✕ Ocultar conversor" : "🔄 Formato"}
           </button>
           <button
             onClick={() => setShowCompressor(!showCompressor)}
             className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-colors"
           >
-            {showCompressor ? "✕ Sıkıştırıcıyı Gizle" : "🗜️ Sıkıştır"}
+            {showCompressor ? "✕ Ocultar compresor" : "🗜️ Comprimir"}
           </button>
           <button
             onClick={() => setShowTranscriber(!showTranscriber)}
             className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors"
           >
-            {showTranscriber ? "✕ Transkripti Gizle" : "📝 Transkript"}
+            {showTranscriber ? "✕ Ocultar transcripción" : "📝 Transcripción"}
           </button>
           <button
             onClick={() => setShowTimelineEditor(!showTimelineEditor)}
             className="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition-colors"
           >
-            {showTimelineEditor ? "✕ Timeline'ı Gizle" : "⏱️ Timeline"}
+            {showTimelineEditor ? "✕ Ocultar línea de tiempo" : "⏱️ Línea de tiempo"}
           </button>
           <button
             onClick={() => setShowColorCorrection(!showColorCorrection)}
             className="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 transition-colors"
           >
-            {showColorCorrection ? "✕ Renk Düzeltmeyi Gizle" : "🎨 Renk Düzeltme"}
+            {showColorCorrection ? "✕ Ocultar corrección de color" : "🎨 Corrección de color"}
           </button>
           <button
             onClick={() => setShowExporter(!showExporter)}
             className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors"
           >
-            {showExporter ? "✕ Export'u Gizle" : "💾 Export"}
+            {showExporter ? "✕ Ocultar exportación" : "💾 Exportar"}
           </button>
           <button
             onClick={() => setShowShare(!showShare)}
             className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors"
           >
-            {showShare ? "✕ Paylaşımı Gizle" : "🔗 Paylaş"}
+            {showShare ? "✕ Ocultar compartir" : "🔗 Compartir"}
           </button>
           <button
             onClick={handleGenerateThumbnail}
             disabled={generatingThumbnail}
             className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Video'dan thumbnail oluştur"
+            title="Generar miniatura del video"
           >
-            {generatingThumbnail ? "⏳ Oluşturuluyor..." : "🖼️ Thumbnail"}
+            {generatingThumbnail ? "⏳ Generando..." : "🖼️ Miniatura"}
           </button>
           <button
             onClick={handleDownload}
             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
           >
-            📥 İndir
+            📥 Descargar
           </button>
           <button
             onClick={onReset}
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
           >
-            Yeni Video
+            Nuevo video
           </button>
         </div>
       </div>
@@ -251,7 +251,7 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
       <div className="relative w-full bg-black rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
         {loading ? (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="text-white">Video yükleniyor...</div>
+            <div className="text-white">Cargando video...</div>
           </div>
         ) : (
           <video
@@ -263,14 +263,14 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
               setVideoDuration(e.currentTarget.duration);
             }}
           >
-            Tarayıcınız video oynatmayı desteklemiyor.
+            Tu navegador no soporta reproducción de video.
           </video>
         )}
       </div>
 
       <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
         <p className="text-green-800 dark:text-green-200 text-sm">
-          ✓ Video başarıyla oluşturuldu! İndir butonuna tıklayarak videoyu kaydedebilirsiniz.
+          ✓ ¡Video generado correctamente! Haz clic en Descargar para guardar el video.
         </p>
       </div>
 
@@ -279,7 +279,7 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                Oluşturulan Thumbnail
+                Miniatura generada
               </h3>
               <img
                 src={thumbnailUrl}
@@ -291,7 +291,7 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
               onClick={handleDownloadThumbnail}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
             >
-              📥 Thumbnail İndir
+              📥 Descargar miniatura
             </button>
           </div>
         </div>
@@ -312,7 +312,7 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
           <ShareButtons
             videoUrl={watermarkedUrl || cachedVideoUrl || videoUrl}
             title="AI UGC Video"
-            description={videoText || "AI ile oluşturulmuş influencer videosu"}
+            description={videoText || "Video de influencer generado con IA"}
             thumbnailUrl={thumbnailUrl || undefined}
           />
         </div>
@@ -329,7 +329,7 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
                     const watermarked = await applyWatermarkToVideo(cachedVideoUrl || videoUrl, options);
                     setWatermarkedUrl(watermarked);
                   } catch (error: any) {
-                    console.error("Watermark uygulanamadı:", error);
+                    console.error("No se pudo aplicar el watermark:", error);
                   }
                 } else {
                   setWatermarkedUrl(null);
@@ -364,7 +364,7 @@ export default function VideoPreview({ videoUrl, onReset, videoText }: VideoPrev
                 // Background music options saved
                 // TODO: Implement actual audio mixing with FFmpeg
                 console.log("Background music options:", options, musicFile);
-                alert("Müzik ekleme özelliği yakında eklenecek. FFmpeg entegrasyonu gerekiyor.");
+                alert("La función de añadir música estará disponible próximamente. Requiere integración con FFmpeg.");
                 setShowBackgroundMusic(false);
               }}
               onCancel={() => setShowBackgroundMusic(false)}

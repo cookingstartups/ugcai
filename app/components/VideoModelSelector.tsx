@@ -2,167 +2,167 @@
 
 import { VideoProvider } from "@/types";
 
-// En iyi 5 ücretsiz video modeli (her provider için)
+// Los 5 mejores modelos de video gratuitos (por proveedor)
 const VIDEO_MODELS = {
   replicate: [
     {
       id: "google/veo-3.1",
       name: "Google Veo 3.1",
-      description: "En yüksek kalite - ses senkronizasyonu destekler",
+      description: "Máxima calidad - compatible con sincronización de audio",
       provider: "Replicate",
-      quality: "Çok Yüksek",
-      speed: "Orta",
+      quality: "Muy alta",
+      speed: "Media",
       free: true,
-      freeNote: "Ücretsiz tier: 6 istek/dakika",
+      freeNote: "Tier gratuito: 6 peticiones/minuto",
     },
     {
       id: "anotherjesse/zeroscope-v2-xl",
       name: "Zeroscope v2 XL",
-      description: "Yüksek kalite video - popüler ve güvenilir",
+      description: "Video de alta calidad - popular y fiable",
       provider: "Replicate",
-      quality: "Yüksek",
-      speed: "Hızlı",
+      quality: "Alta",
+      speed: "Rápida",
       free: true,
-      freeNote: "Ücretsiz tier mevcut",
+      freeNote: "Tier gratuito disponible",
     },
     {
       id: "stability-ai/stable-video-diffusion",
       name: "Stable Video Diffusion",
-      description: "Stability AI - image-to-video modeli",
+      description: "Stability AI - modelo image-to-video",
       provider: "Replicate",
-      quality: "İyi",
-      speed: "Hızlı",
+      quality: "Buena",
+      speed: "Rápida",
       free: true,
-      freeNote: "Ücretsiz tier mevcut",
+      freeNote: "Tier gratuito disponible",
     },
     {
       id: "luma/dream-machine",
       name: "Luma Dream Machine",
-      description: "Hızlı ve kaliteli video üretimi",
+      description: "Generación de video rápida y de calidad",
       provider: "Replicate",
-      quality: "İyi",
-      speed: "Çok Hızlı",
+      quality: "Buena",
+      speed: "Muy rápida",
       free: true,
-      freeNote: "Ücretsiz tier mevcut",
+      freeNote: "Tier gratuito disponible",
     },
     {
       id: "meta/animate-anyone",
       name: "Meta Animate Anyone",
-      description: "Karakter animasyonu için ideal",
+      description: "Ideal para animación de personajes",
       provider: "Replicate",
-      quality: "Yüksek",
-      speed: "Orta",
+      quality: "Alta",
+      speed: "Media",
       free: true,
-      freeNote: "Ücretsiz tier mevcut",
+      freeNote: "Tier gratuito disponible",
     },
   ],
   fal: [
     {
       id: "kling-video/v2.5-turbo/pro/text-to-video",
       name: "Kling 2.5 Turbo Pro",
-      description: "En yüksek kalite - sinematik görseller, akıcı hareket",
+      description: "Máxima calidad - imágenes cinematográficas, movimiento fluido",
       provider: "Fal.ai",
-      quality: "Çok Yüksek",
-      speed: "Orta",
+      quality: "Muy alta",
+      speed: "Media",
       free: true,
-      freeNote: "Günlük 100 ücretsiz istek",
+      freeNote: "100 peticiones gratuitas al día",
     },
     {
       id: "veo3.1/text-to-video",
       name: "Veo 3.1",
-      description: "Google DeepMind - state-of-the-art video generation",
+      description: "Google DeepMind - generación de video de última generación",
       provider: "Fal.ai",
-      quality: "Çok Yüksek",
-      speed: "Orta",
+      quality: "Muy alta",
+      speed: "Media",
       free: true,
-      freeNote: "Günlük 100 ücretsiz istek",
+      freeNote: "100 peticiones gratuitas al día",
     },
     {
       id: "pixverse/v5/text-to-video",
       name: "PixVerse v5",
-      description: "Yüksek kalite video klip üretimi",
+      description: "Generación de clips de video de alta calidad",
       provider: "Fal.ai",
-      quality: "Yüksek",
-      speed: "Hızlı",
+      quality: "Alta",
+      speed: "Rápida",
       free: true,
-      freeNote: "Günlük 100 ücretsiz istek",
+      freeNote: "100 peticiones gratuitas al día",
     },
     {
       id: "kling-video/v2.6/pro/text-to-video",
       name: "Kling 2.6 Pro",
-      description: "Ses desteği ile video üretimi",
+      description: "Generación de video con soporte de audio",
       provider: "Fal.ai",
-      quality: "Çok Yüksek",
-      speed: "Orta",
+      quality: "Muy alta",
+      speed: "Media",
       free: true,
-      freeNote: "Günlük 100 ücretsiz istek",
+      freeNote: "100 peticiones gratuitas al día",
     },
     {
       id: "ltx-2/text-to-video",
       name: "LTX-2 Pro",
-      description: "Yüksek kalite video ve ses üretimi",
+      description: "Generación de video y audio de alta calidad",
       provider: "Fal.ai",
-      quality: "Yüksek",
-      speed: "Orta",
+      quality: "Alta",
+      speed: "Media",
       free: true,
-      freeNote: "Günlük 100 ücretsiz istek",
+      freeNote: "100 peticiones gratuitas al día",
     },
   ],
   huggingface: [
     {
       id: "replicate/google/veo-3.1",
       name: "Google Veo 3.1 (Replicate)",
-      description: "Replicate üzerinden - en yüksek kalite",
+      description: "Vía Replicate - máxima calidad",
       provider: "Replicate (via HF)",
-      quality: "Çok Yüksek",
-      speed: "Orta",
+      quality: "Muy alta",
+      speed: "Media",
       free: true,
-      freeNote: "Replicate API key gerekli",
-      note: "Hugging Face Inference API text-to-video desteklemiyor. Replicate kullanın.",
+      freeNote: "Requiere API key de Replicate",
+      note: "Hugging Face Inference API no soporta text-to-video. Usa Replicate.",
     },
     {
       id: "fal-ai/flux/dev",
       name: "FLUX.1-dev (Fal.ai)",
-      description: "Fal.ai üzerinden - yüksek kalite",
+      description: "Vía Fal.ai - alta calidad",
       provider: "Fal.ai (via HF)",
-      quality: "Çok Yüksek",
-      speed: "Orta",
+      quality: "Muy alta",
+      speed: "Media",
       free: true,
-      freeNote: "Fal.ai API key gerekli",
-      note: "Hugging Face Inference API text-to-video desteklemiyor. Fal.ai kullanın.",
+      freeNote: "Requiere API key de Fal.ai",
+      note: "Hugging Face Inference API no soporta text-to-video. Usa Fal.ai.",
     },
     {
       id: "tencent/HunyuanVideo",
       name: "HunyuanVideo",
-      description: "Tencent - Inference API üzerinden (sınırlı)",
+      description: "Tencent - vía Inference API (limitado)",
       provider: "Hugging Face",
-      quality: "İyi",
-      speed: "Orta",
+      quality: "Buena",
+      speed: "Media",
       free: true,
-      freeNote: "Günlük 1000 ücretsiz istek",
-      note: "⚠️ Inference API üzerinden çalışmayabilir",
+      freeNote: "1000 peticiones gratuitas al día",
+      note: "⚠️ Puede no funcionar vía Inference API",
     },
     {
       id: "Lightricks/LTX-Video",
       name: "LTX-Video",
-      description: "Lightricks - Inference API üzerinden (sınırlı)",
+      description: "Lightricks - vía Inference API (limitado)",
       provider: "Hugging Face",
-      quality: "İyi",
-      speed: "Orta",
+      quality: "Buena",
+      speed: "Media",
       free: true,
-      freeNote: "Günlük 1000 ücretsiz istek",
-      note: "⚠️ Inference API üzerinden çalışmayabilir",
+      freeNote: "1000 peticiones gratuitas al día",
+      note: "⚠️ Puede no funcionar vía Inference API",
     },
     {
       id: "recommend-replicate",
-      name: "Replicate Kullanın",
-      description: "Hugging Face text-to-video için uygun değil",
-      provider: "Öneri",
+      name: "Usa Replicate",
+      description: "Hugging Face no es adecuado para text-to-video",
+      provider: "Recomendación",
       quality: "N/A",
       speed: "N/A",
       free: true,
-      freeNote: "Replicate veya Fal.ai kullanın",
-      note: "💡 Hugging Face Inference API text-to-video modellerini desteklemiyor. Replicate veya Fal.ai kullanmanızı öneririz.",
+      freeNote: "Usa Replicate o Fal.ai",
+      note: "💡 Hugging Face Inference API no soporta modelos text-to-video. Te recomendamos usar Replicate o Fal.ai.",
     },
   ],
 };
@@ -186,7 +186,7 @@ export default function VideoModelSelector({
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Video Modeli
+        Modelo de video
       </label>
       <select
         value={selectedModel || availableModels[0].id}
@@ -226,20 +226,20 @@ export default function VideoModelSelector({
             {selectedProvider === "huggingface" && (
               <div className="mb-2 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded">
                 <p className="text-orange-800 dark:text-orange-200 text-xs font-medium">
-                  ⚠️ <strong>Önemli:</strong> Hugging Face Inference API text-to-video modellerini desteklemiyor. 
-                  Video oluşturmak için <strong>Replicate</strong> veya <strong>Fal.ai</strong> provider'ını kullanmanızı öneririz.
+                  ⚠️ <strong>Importante:</strong> Hugging Face Inference API no soporta modelos text-to-video.
+                  Para generar video te recomendamos usar el proveedor <strong>Replicate</strong> o <strong>Fal.ai</strong>.
                 </p>
               </div>
             )}
             <div className="flex gap-4 pt-2 border-t border-purple-200 dark:border-purple-700">
               <div className="flex items-center gap-1">
-                <span className="text-gray-500 dark:text-gray-400">Kalite:</span>
+                <span className="text-gray-500 dark:text-gray-400">Calidad:</span>
                 <span className="font-semibold text-purple-700 dark:text-purple-300">
                   {currentModel.quality}
                 </span>
               </div>
               <div className="flex items-center gap-1">
-                <span className="text-gray-500 dark:text-gray-400">Hız:</span>
+                <span className="text-gray-500 dark:text-gray-400">Velocidad:</span>
                 <span className="font-semibold text-blue-700 dark:text-blue-300">
                   {currentModel.speed}
                 </span>

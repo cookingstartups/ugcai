@@ -311,7 +311,7 @@ export default function VideoHistory({ onSelectVideo, onClose }: VideoHistoryPro
                         : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-red-100 dark:hover:bg-red-900/20"
                     }`}
                   >
-                    {showDeleteConfirm === video.id ? "Onayla" : "🗑️"}
+                    {showDeleteConfirm === video.id ? "Confirmar" : "🗑️"}
                   </button>
                 </div>
               </div>

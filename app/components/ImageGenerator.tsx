@@ -6,96 +6,96 @@ import { ImageGenerationOptions } from "@/lib/huggingface";
 import LoadingState from "./LoadingState";
 import { getAllAvatars, SavedAvatar } from "@/lib/avatarHistory";
 
-// En iyi ücretsiz AI görsel modelleri (sansürsüz alternatifler dahil)
+// Los mejores modelos de IA gratuitos para imágenes (incluye alternativas sin censura)
 const AVAILABLE_MODELS = [
   {
     id: "black-forest-labs/FLUX.1-dev",
     name: "FLUX.1-dev",
-    description: "En yüksek kalite - 12B parametre, estetik fotoğraflar, daha az kısıtlı",
+    description: "Calidad muy alta - 12B parámetros, fotos estéticas, menos restricciones",
     provider: "Black Forest Labs",
-    quality: "Çok Yüksek",
-    speed: "Orta",
+    quality: "Muy alta",
+    speed: "Media",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "black-forest-labs/FLUX.1-schnell",
     name: "FLUX.1-schnell",
-    description: "Hızlı üretim - Apache 2.0 lisanslı, daha az kısıtlı",
+    description: "Generación rápida - licencia Apache 2.0, menos restricciones",
     provider: "Black Forest Labs",
-    quality: "İyi",
-    speed: "Çok Hızlı",
+    quality: "Buena",
+    speed: "Muy rápida",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "SG161222/Realistic_Vision_V5.1_noVAE",
     name: "Realistic Vision V5.1",
-    description: "Gerçekçi fotoğraflar - NSFW destekli, kararlı versiyon (Inference API destekli)",
+    description: "Fotos realistas - compatible con NSFW, versión estable (compatible con Inference API)",
     provider: "SG161222",
-    quality: "Yüksek",
-    speed: "Orta",
+    quality: "Alta",
+    speed: "Media",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "SG161222/Realistic_Vision_V6.0_B1_noVAE",
     name: "Realistic Vision V6.0",
-    description: "Gerçekçi fotoğraflar - NSFW destekli, yüksek kalite (Not: Inference API desteği sınırlı, V5.1 önerilir)",
+    description: "Fotos realistas - compatible con NSFW, alta calidad (Nota: soporte Inference API limitado, se recomienda V5.1)",
     provider: "SG161222",
-    quality: "Çok Yüksek",
-    speed: "Orta",
+    quality: "Muy alta",
+    speed: "Media",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "runwayml/stable-diffusion-v1-5",
     name: "Stable Diffusion v1.5",
-    description: "Klasik ve hızlı - geniş kullanım alanı, NSFW destekli",
+    description: "Clásico y rápido - amplio uso, compatible con NSFW",
     provider: "Runway",
-    quality: "İyi",
-    speed: "Hızlı",
+    quality: "Buena",
+    speed: "Rápida",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "CompVis/stable-diffusion-v1-4",
     name: "Stable Diffusion v1.4",
-    description: "Orijinal model - NSFW destekli, güvenilir",
+    description: "Modelo original - compatible con NSFW, fiable",
     provider: "CompVis",
-    quality: "İyi",
-    speed: "Hızlı",
+    quality: "Buena",
+    speed: "Rápida",
     uncensored: true,
     nsfw: true,
   },
   {
     id: "stabilityai/stable-diffusion-xl-base-1.0",
     name: "Stable Diffusion XL",
-    description: "Popüler ve güvenilir - yüksek kalite görseller",
+    description: "Popular y fiable - imágenes de alta calidad",
     provider: "Stability AI",
-    quality: "Yüksek",
-    speed: "Orta",
+    quality: "Alta",
+    speed: "Media",
     uncensored: false,
     nsfw: false,
   },
   {
     id: "stabilityai/sdxl-turbo",
     name: "SDXL Turbo",
-    description: "Çok hızlı - tek adımda görsel üretimi",
+    description: "Muy rápido - generación de imágenes en un solo paso",
     provider: "Stability AI",
-    quality: "İyi",
-    speed: "Çok Hızlı",
+    quality: "Buena",
+    speed: "Muy rápida",
     uncensored: false,
     nsfw: false,
   },
 ];
 
 const ASPECT_RATIOS = [
-  { value: "9:16" as const, name: "Dikey (9:16)", description: "Instagram Story, TikTok, YouTube Shorts", width: 1080, height: 1920 },
-  { value: "1:1" as const, name: "Kare (1:1)", description: "Instagram Post", width: 1024, height: 1024 },
-  { value: "16:9" as const, name: "Yatay (16:9)", description: "YouTube, Facebook", width: 1920, height: 1080 },
-  { value: "4:3" as const, name: "Klasik (4:3)", description: "Geleneksel format", width: 1024, height: 768 },
-  { value: "21:9" as const, name: "Ultra Geniş (21:9)", description: "Sinematik", width: 2560, height: 1080 },
+  { value: "9:16" as const, name: "Vertical (9:16)", description: "Instagram Story, TikTok, YouTube Shorts", width: 1080, height: 1920 },
+  { value: "1:1" as const, name: "Cuadrado (1:1)", description: "Instagram Post", width: 1024, height: 1024 },
+  { value: "16:9" as const, name: "Horizontal (16:9)", description: "YouTube, Facebook", width: 1920, height: 1080 },
+  { value: "4:3" as const, name: "Clásico (4:3)", description: "Formato tradicional", width: 1024, height: 768 },
+  { value: "21:9" as const, name: "Ultra ancho (21:9)", description: "Cinematográfico", width: 2560, height: 1080 },
 ];
 
 export default function ImageGenerator() {
@@ -124,7 +124,7 @@ export default function ImageGenerator() {
 
   const handleGenerate = async () => {
     if (!prompt.trim() && !selectedAvatar) {
-      showError("Lütfen bir açıklama girin veya avatar seçin");
+      showError("Por favor, introduce una descripción o selecciona un avatar");
       return;
     }
 
@@ -160,14 +160,14 @@ export default function ImageGenerator() {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || "Görsel oluşturulamadı");
+        throw new Error(data.error || "No se pudo generar la imagen");
       }
 
       setImageUrl(data.imageUrl);
-      success("Görsel başarıyla oluşturuldu!");
+      success("¡Imagen generada correctamente!");
     } catch (error: any) {
       console.error("Error generating image:", error);
-      showError(error.message || "Görsel oluşturulurken bir hata oluştu");
+      showError(error.message || "Ocurrió un error al generar la imagen");
     } finally {
       setIsGenerating(false);
     }
@@ -182,17 +182,17 @@ export default function ImageGenerator() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    success("Görsel indirildi!");
+    success("¡Imagen descargada!");
   };
 
   const handleGeneratePoseVariation = async () => {
     if (!imageUrl) {
-      showError("Lütfen önce bir görsel oluşturun");
+      showError("Por favor, genera primero una imagen");
       return;
     }
 
     if (!selectedPose && !selectedCameraAngle) {
-      showError("Lütfen en az bir poz veya kamera açısı seçin");
+      showError("Por favor, selecciona al menos una pose o un ángulo de cámara");
       return;
     }
 
@@ -229,14 +229,14 @@ export default function ImageGenerator() {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || "Poz varyasyonu oluşturulamadı");
+        throw new Error(data.error || "No se pudo generar la variación de pose");
       }
 
       setPoseVariationImage(data.imageUrl);
-      success("Poz varyasyonu başarıyla oluşturuldu!");
+      success("¡Variación de pose generada correctamente!");
     } catch (error: any) {
       console.error("Error generating pose variation:", error);
-      showError(error.message || "Poz varyasyonu oluşturulurken bir hata oluştu");
+      showError(error.message || "Ocurrió un error al generar la variación de pose");
     } finally {
       setIsGeneratingPose(false);
     }
@@ -251,7 +251,7 @@ export default function ImageGenerator() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    success("Poz varyasyonu indirildi!");
+    success("¡Variación de pose descargada!");
   };
 
   const selectedAspectRatioInfo = ASPECT_RATIOS.find(r => r.value === selectedAspectRatio);
@@ -261,10 +261,10 @@ export default function ImageGenerator() {
       <ToastContainer toasts={toasts} onClose={removeToast} />
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          AI Görsel Oluşturucu
+          Generador de imágenes con IA
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          Hugging Face AI kullanarak dikey, yatay veya kare format görseller oluşturun
+          Genera imágenes en formato vertical, horizontal o cuadrado con Hugging Face IA
         </p>
       </div>
 
@@ -274,7 +274,7 @@ export default function ImageGenerator() {
           {/* Model Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-              AI Modeli Seçin
+              Selecciona el modelo de IA
             </label>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {AVAILABLE_MODELS.map((model) => (
@@ -302,12 +302,12 @@ export default function ImageGenerator() {
                       </span>
                       {model.uncensored && (
                         <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-xs rounded font-medium">
-                          ✓ Daha Az Kısıtlı
+                          ✓ Menos restricciones
                         </span>
                       )}
                       {model.nsfw && (
                         <span className="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 text-xs rounded font-medium">
-                          🔞 NSFW Destekli
+                          🔞 Compatible con NSFW
                         </span>
                       )}
                     </div>
@@ -323,7 +323,7 @@ export default function ImageGenerator() {
           {/* Aspect Ratio Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-              Format / En-Boy Oranı
+              Formato / Relación de aspecto
             </label>
             <div className="grid grid-cols-2 gap-2">
               {ASPECT_RATIOS.map((ratio) => (
@@ -356,14 +356,14 @@ export default function ImageGenerator() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Kaydedilmiş Avatar Kullan (Opsiyonel)
+                  Usar avatar guardado (opcional)
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowAvatarSelector(!showAvatarSelector)}
                   className="text-sm text-purple-600 dark:text-purple-400 hover:underline"
                 >
-                  {showAvatarSelector ? "Gizle" : "Göster"}
+                  {showAvatarSelector ? "Ocultar" : "Mostrar"}
                 </button>
               </div>
               {showAvatarSelector && (
@@ -378,7 +378,7 @@ export default function ImageGenerator() {
                           : "border-gray-200 dark:border-gray-700 hover:border-purple-300"
                       }`}
                     >
-                      Avatar Kullanma
+                      Sin avatar
                     </button>
                     {savedAvatars.map((avatar) => (
                       <button
@@ -414,7 +414,7 @@ export default function ImageGenerator() {
                     />
                     <div className="flex-1">
                       <p className="text-sm font-medium text-gray-900 dark:text-white">
-                        Seçili Avatar
+                        Avatar seleccionado
                       </p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
                         {selectedAvatar.prompt}
@@ -436,14 +436,14 @@ export default function ImageGenerator() {
           {/* Prompt Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Görsel Açıklaması {selectedAvatar ? "(Opsiyonel - Avatar kullanılıyor)" : "*"}
+              Descripción de la imagen {selectedAvatar ? "(Opcional - se usa avatar)" : "*"}
             </label>
             <textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder={selectedAvatar 
-                ? "Ek detaylar ekleyin (opsiyonel) - Avatar zaten kullanılıyor"
-                : "Örn: A beautiful sunset over mountains, cinematic lighting, vibrant colors"}
+              placeholder={selectedAvatar
+                ? "Añade detalles adicionales (opcional) - ya se usa el avatar"
+                : "Ej: A beautiful sunset over mountains, cinematic lighting, vibrant colors"}
               rows={4}
               disabled={isGenerating}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
@@ -453,13 +453,13 @@ export default function ImageGenerator() {
           {/* Style Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Stil (Opsiyonel)
+              Estilo (opcional)
             </label>
             <input
               type="text"
               value={style}
               onChange={(e) => setStyle(e.target.value)}
-              placeholder="Örn: realistic, cartoon, anime, professional, artistic"
+              placeholder="Ej: realistic, cartoon, anime, professional, artistic"
               disabled={isGenerating}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
             />
@@ -468,12 +468,12 @@ export default function ImageGenerator() {
           {/* Additional Prompt */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Ek Detaylar (Opsiyonel)
+              Detalles adicionales (opcional)
             </label>
             <textarea
               value={additionalPrompt}
               onChange={(e) => setAdditionalPrompt(e.target.value)}
-              placeholder="Örn: high quality, 8k, detailed, professional photography"
+              placeholder="Ej: high quality, 8k, detailed, professional photography"
               rows={2}
               disabled={isGenerating}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
@@ -486,7 +486,7 @@ export default function ImageGenerator() {
             disabled={isGenerating || !prompt.trim()}
             className="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
           >
-            {isGenerating ? "Görsel Oluşturuluyor..." : "Görsel Oluştur"}
+            {isGenerating ? "Generando imagen..." : "Generar imagen"}
           </button>
         </div>
 
@@ -497,7 +497,7 @@ export default function ImageGenerator() {
               <LoadingState
                 status={{
                   status: "generating-video",
-                  message: "Görsel oluşturuluyor...",
+                  message: "Generando imagen...",
                   progress: undefined,
                 }}
               />
@@ -520,13 +520,13 @@ export default function ImageGenerator() {
                   onClick={handleDownload}
                   className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                 >
-                  📥 İndir
+                  📥 Descargar
                 </button>
                 <button
                   onClick={() => setImageUrl(null)}
                   className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                 >
-                  ✕ Temizle
+                  ✕ Limpiar
                 </button>
               </div>
               {selectedAspectRatioInfo && (
@@ -540,17 +540,17 @@ export default function ImageGenerator() {
               {/* Pose Variation Section */}
               <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                  🎭 Poz ve Kamera Açısı Varyasyonları
+                  🎭 Variaciones de pose y ángulo de cámara
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  Oluşturduğunuz görselden farklı poz ve çekim açıları oluşturun
+                  Genera distintas poses y ángulos de cámara desde la imagen creada
                 </p>
 
                 <div className="space-y-4">
                   {/* Pose Selection */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Poz Seçin
+                      Selecciona una pose
                     </label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                       {[
@@ -584,7 +584,7 @@ export default function ImageGenerator() {
                   {/* Camera Angle Selection */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Kamera Açısı
+                      Ángulo de cámara
                     </label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                       {[
@@ -615,7 +615,7 @@ export default function ImageGenerator() {
                   {/* Strength Slider */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Değişim Gücü: {Math.round(poseStrength * 100)}%
+                      Intensidad del cambio: {Math.round(poseStrength * 100)}%
                     </label>
                     <input
                       type="range"
@@ -628,8 +628,8 @@ export default function ImageGenerator() {
                       className="w-full"
                     />
                     <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      <span>Az Değişim</span>
-                      <span>Çok Değişim</span>
+                      <span>Poco cambio</span>
+                      <span>Mucho cambio</span>
                     </div>
                   </div>
 
@@ -639,7 +639,7 @@ export default function ImageGenerator() {
                     disabled={isGeneratingPose || (!selectedPose && !selectedCameraAngle)}
                     className="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
                   >
-                    {isGeneratingPose ? "Poz Varyasyonu Oluşturuluyor..." : "Poz Varyasyonu Oluştur"}
+                    {isGeneratingPose ? "Generando variación de pose..." : "Generar variación de pose"}
                   </button>
                 </div>
 
@@ -649,7 +649,7 @@ export default function ImageGenerator() {
                     <LoadingState
                       status={{
                         status: "generating-video",
-                        message: "Poz varyasyonu oluşturuluyor...",
+                        message: "Generando variación de pose...",
                         progress: undefined,
                       }}
                     />
@@ -672,7 +672,7 @@ export default function ImageGenerator() {
                         onClick={handleDownloadPoseVariation}
                         className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                       >
-                        📥 Poz Varyasyonunu İndir
+                        📥 Descargar variación de pose
                       </button>
                       <button
                         onClick={() => {
@@ -682,7 +682,7 @@ export default function ImageGenerator() {
                         }}
                         className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                       >
-                        ✕ Temizle
+                        ✕ Limpiar
                       </button>
                     </div>
                   </div>
@@ -695,7 +695,7 @@ export default function ImageGenerator() {
             <div className="flex items-center justify-center h-96 bg-gray-100 dark:bg-gray-700 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
               <div className="text-center text-gray-500 dark:text-gray-400">
                 <div className="text-4xl mb-2">🎨</div>
-                <p>Görsel burada görünecek</p>
+                <p>La imagen aparecerá aquí</p>
               </div>
             </div>
           )}
@@ -704,8 +704,8 @@ export default function ImageGenerator() {
 
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>💡 İpucu:</strong> Dikey format (9:16) Instagram Story, TikTok ve YouTube Shorts için idealdir. 
-          FLUX modelleri daha az içerik kısıtlamasına sahiptir ve yüksek kaliteli görseller üretir.
+          <strong>💡 Consejo:</strong> El formato vertical (9:16) es ideal para Instagram Story, TikTok y YouTube Shorts.
+          Los modelos FLUX tienen menos restricciones de contenido y generan imágenes de alta calidad.
         </p>
       </div>
     </div>

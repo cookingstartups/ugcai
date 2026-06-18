@@ -52,7 +52,7 @@ export default function VideoProviderSelector({
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Video Oluşturma Servisi
+        Servicio de generación de video
       </label>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {VIDEO_PROVIDERS_CLIENT.map((providerConfig) => {
@@ -85,15 +85,15 @@ export default function VideoProviderSelector({
               {providerConfig.requiresApiKey && (
                 <p className={`text-xs mt-1 ${isLoading ? "text-gray-400" : isAvailable ? "text-green-600 dark:text-green-400" : "text-red-500 dark:text-red-400"}`}>
                   {isLoading 
-                    ? "⏳ Kontrol ediliyor..." 
-                    : isAvailable 
-                      ? "✅ API key tanımlı" 
-                      : "❌ API key tanımlı değil"}
+                    ? "⏳ Verificando..."
+                    : isAvailable
+                      ? "✅ API key configurada"
+                      : "❌ API key no configurada"}
                 </p>
               )}
               {providerConfig.supportsAudio !== undefined && (
                 <p className={`text-xs mt-1 ${providerConfig.supportsAudio ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}`}>
-                  {providerConfig.supportsAudio ? "🎵 Ses senkronizasyonu desteklenir" : "⚠️ Ses desteği sınırlı"}
+                  {providerConfig.supportsAudio ? "🎵 Sincronización de audio compatible" : "⚠️ Soporte de audio limitado"}
                 </p>
               )}
             </button>
@@ -103,13 +103,13 @@ export default function VideoProviderSelector({
       {selectedProvider && providerAvailability[selectedProvider] === false && VIDEO_PROVIDERS_CLIENT.find(p => p.provider === selectedProvider)?.requiresApiKey && (
         <div className="mt-2 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">
-            ⚠️ <strong>{VIDEO_PROVIDERS_CLIENT.find(p => p.provider === selectedProvider)?.name}</strong> için API key tanımlı değil. 
-            Lütfen <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">.env</code> dosyasına <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">{VIDEO_PROVIDERS_CLIENT.find(p => p.provider === selectedProvider)?.apiKeyEnv}</code> ekleyin.
+            ⚠️ No hay API key configurada para <strong>{VIDEO_PROVIDERS_CLIENT.find(p => p.provider === selectedProvider)?.name}</strong>.
+            Añade <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">{VIDEO_PROVIDERS_CLIENT.find(p => p.provider === selectedProvider)?.apiKeyEnv}</code> al archivo <code className="bg-yellow-100 dark:bg-yellow-900/40 px-1 rounded">.env</code>.
           </p>
         </div>
       )}
       <p className="text-xs text-gray-500 dark:text-gray-400">
-        💡 Ücretsiz seçenekler için Fal.ai veya Hugging Face&apos;i seçin
+        💡 Para opciones gratuitas, elige Fal.ai o Hugging Face
       </p>
     </div>
   );

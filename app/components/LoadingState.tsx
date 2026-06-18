@@ -15,7 +15,7 @@ export default function LoadingState({ status }: LoadingStateProps) {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
         <div className="flex-1">
           <p className="text-blue-800 dark:text-blue-200 font-medium">
-            {status.message || "İşlem devam ediyor..."}
+            {status.message || "Procesando..."}
           </p>
           {status.status === "generating-video" && (
             <div className="mt-3 space-y-2">
@@ -33,7 +33,7 @@ export default function LoadingState({ status }: LoadingStateProps) {
               </div>
               {progress > 0 && (
                 <p className="text-xs text-blue-600 dark:text-blue-400">
-                  İlerleme: {progress}%
+                  Progreso: {progress}%
                 </p>
               )}
             </div>
